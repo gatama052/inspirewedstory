@@ -244,11 +244,7 @@ export function OwnerDashboard({ onClose }: { onClose: () => void }) {
                       </button>
                     </li>
                   ))}
-                  {guests.length === 0 ? (
-                    <p className="py-8 text-center text-sm text-muted-foreground">
-                      Belum ada tamu. Tambahkan nama untuk membuat link pribadi.
-                    </p>
-                  ) : null}
+                  {guests.length === 0 ? <OwnerOnboarding /> : null}
                 </ul>
               </>
             ) : (
