@@ -1,11 +1,10 @@
 import {
   Heart,
-  Home,
-  Image,
   CalendarDays,
   Gift,
   MailCheck,
-  MapPin,
+  PartyPopper,
+  Sparkles,
   Timer,
   Quote,
   Users,
@@ -13,18 +12,16 @@ import {
 } from "lucide-react";
 
 const ICONS: Record<string, typeof Heart> = {
-  opening: Home,
   greeting: Heart,
   quote: Quote,
   couple: Users,
   akad: CalendarDays,
-  resepsi: CalendarDays,
-  maps: MapPin,
+  resepsi: PartyPopper,
   countdown: Timer,
-  gallery: Image,
   story: BookHeart,
   gift: Gift,
   rsvp: MailCheck,
+  thanks: Sparkles,
 };
 
 export function BottomNav({
@@ -36,13 +33,15 @@ export function BottomNav({
   active: string;
   onSelect: (id: string) => void;
 }) {
+  const items = pages.filter((page) => page.id in ICONS);
+
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 flex justify-center px-3 pb-3">
+    <nav className="fixed inset-x-0 bottom-0 z-40 flex justify-center px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
       <div
         data-scrollable
-        className="glass-card flex max-w-full gap-1 overflow-x-auto rounded-full px-2 py-1.5 shadow-xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="glass-card flex max-w-full gap-0.5 overflow-x-auto rounded-full px-1.5 py-1 shadow-xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {pages.map((page) => {
+        {items.map((page) => {
           const Icon = ICONS[page.id] ?? Heart;
           const isActive = page.id === active;
           return (
@@ -52,13 +51,13 @@ export function BottomNav({
               onClick={() => onSelect(page.id)}
               aria-label={page.label}
               aria-current={isActive}
-              className={`grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all duration-300 ${
+              className={`grid h-9 w-9 shrink-0 place-items-center rounded-full transition-all duration-300 ${
                 isActive
                   ? "bg-primary text-primary-foreground scale-105 shadow-md"
                   : "text-muted-foreground hover:text-primary"
               }`}
             >
-              <Icon className="h-4 w-4" />
+              <Icon className="h-3.5 w-3.5" />
             </button>
           );
         })}
