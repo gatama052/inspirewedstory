@@ -152,6 +152,7 @@ function PersonCard({
   name,
   father,
   mother,
+  role,
   delay,
   variant,
 }: {
@@ -159,6 +160,7 @@ function PersonCard({
   name: string;
   father: string;
   mother: string;
+  role: string;
   delay: number;
   variant: "left" | "right";
 }) {
@@ -174,7 +176,7 @@ function PersonCard({
       <div className="min-w-0">
         <h3 className="font-display text-xl leading-tight text-sage-deep">{name}</h3>
         <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
-          Putra/i dari
+          {role} dari
           <br />
           {father}
           <br />
@@ -196,6 +198,7 @@ export function CoupleSection() {
           name={INVITATION.groom.full}
           father={INVITATION.groom.father}
           mother={INVITATION.groom.mother}
+          role="Putra"
           delay={260}
           variant="left"
         />
@@ -207,6 +210,7 @@ export function CoupleSection() {
           name={INVITATION.bride.full}
           father={INVITATION.bride.father}
           mother={INVITATION.bride.mother}
+          role="Putri"
           delay={460}
           variant="right"
         />
