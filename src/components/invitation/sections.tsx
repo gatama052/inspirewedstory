@@ -63,25 +63,24 @@ export function OpeningSection({
         </h1>
       </Reveal>
 
-      <Reveal delay={340} variant="scale" className="mx-auto mt-5 w-[52%] max-w-[210px]">
-        <div className="overflow-hidden rounded-[1.75rem] border border-gold/50 shadow-xl">
-          <img
-            src={ASSETS.couple}
-            alt={`${INVITATION.groom.name} dan ${INVITATION.bride.name}`}
-            className="aspect-[4/5] w-full object-cover"
-          />
-        </div>
+      <Reveal delay={340} className="mt-7">
+        <img
+          src={ASSETS.couple}
+          alt={`${INVITATION.groom.name} dan ${INVITATION.bride.name}`}
+          className="mx-auto h-[27dvh] w-auto max-w-[70%] object-contain"
+          style={{ animation: "photo-in 800ms cubic-bezier(0.22,1,0.36,1) both" }}
+        />
       </Reveal>
 
-      <Reveal delay={460} className="mt-4">
+      <Reveal delay={520} className="mt-7">
         <p className="text-[11px] tracking-[0.28em] text-muted-foreground uppercase">
-          15 Agustus 2026
+          9 September 2026
         </p>
       </Reveal>
 
-      <Reveal delay={560} variant="bottom" className="mt-5">
+      <Reveal delay={620} variant="bottom" className="mt-7">
         <p className="text-[10px] tracking-[0.3em] text-muted-foreground uppercase">Kepada Yth.</p>
-        <p className="mt-1 font-display text-2xl break-words text-sage-deep">{guestName}</p>
+        <p className="mt-1.5 font-display text-2xl break-words text-sage-deep">{guestName}</p>
       </Reveal>
 
       {opened ? (
