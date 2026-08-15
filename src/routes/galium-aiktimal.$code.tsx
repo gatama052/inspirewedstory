@@ -11,12 +11,12 @@ export const Route = createFileRoute("/galium-aiktimal/$code")({
       {
         name: "description",
         content:
-          "Undangan pernikahan Galium & Aiktimal, Sabtu 15 Agustus 2026. Konfirmasi kehadiran melalui link pribadi Anda.",
+          "Undangan pernikahan Galium & Aiktimal, Rabu 9 September 2026. Konfirmasi kehadiran melalui link pribadi Anda.",
       },
       { property: "og:title", content: "Galium & Aiktimal — Undangan Pernikahan" },
       {
         property: "og:description",
-        content: "Undangan pribadi untuk hari bahagia kami, 15 Agustus 2026.",
+        content: "Undangan pribadi untuk hari bahagia kami, 9 September 2026.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
