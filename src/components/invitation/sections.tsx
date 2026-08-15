@@ -84,7 +84,7 @@ export function OpeningSection({
       </Reveal>
 
       {opened ? (
-        <Reveal delay={700} className="mt-6">
+        <Reveal delay={760} className="mt-8">
           <div className="flex flex-col items-center gap-1 text-muted-foreground">
             <span className="text-[10px] tracking-[0.3em] uppercase">Geser ke atas</span>
             <ChevronDown
@@ -94,7 +94,7 @@ export function OpeningSection({
           </div>
         </Reveal>
       ) : (
-        <Reveal delay={700} variant="bottom" className="mt-6">
+        <Reveal delay={760} variant="bottom" className="mt-8">
           <button
             type="button"
             onClick={onOpen}
@@ -118,7 +118,15 @@ export function GreetingSection() {
         <p className="font-display text-2xl text-sage-deep">Assalamu&apos;alaikum</p>
         <p className="font-display text-2xl text-sage-deep">Warahmatullahi Wabarakatuh</p>
       </Reveal>
-      <Reveal delay={420} className="mt-5">
+      <Reveal delay={380} className="mt-5">
+        <img
+          src={ASSETS.couple}
+          alt={`${INVITATION.groom.name} dan ${INVITATION.bride.name}`}
+          className="mx-auto h-[26dvh] w-auto max-w-[70%] object-contain"
+          style={{ animation: "photo-in 800ms cubic-bezier(0.22,1,0.36,1) both" }}
+        />
+      </Reveal>
+      <Reveal delay={520} className="mt-5">
         <p className="text-sm leading-relaxed text-muted-foreground">
           Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i
           untuk menghadiri acara pernikahan kami.
@@ -134,13 +142,28 @@ export function QuoteSection() {
     <PageShell>
       <Eyebrow delay={80}>Ar-Rum : 21</Eyebrow>
       <Divider delay={180} />
-      <Reveal delay={280} variant="scale">
-        <p className="font-display text-lg leading-relaxed text-sage-deep italic">
+      <Reveal delay={240} variant="scale">
+        <p
+          dir="rtl"
+          lang="ar"
+          className="text-[1.15rem] leading-[2.4] text-sage-deep"
+          style={{ fontFamily: "'Traditional Arabic', 'Amiri', 'Scheherazade New', serif" }}
+        >
+          وَمِنْ اٰيٰتِهٖٓ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْٓا اِلَيْهَا
+          وَجَعَلَ بَيْنَكُمْ مَّوَدَّةً وَّرَحْمَةً ۗاِنَّ فِيْ ذٰلِكَ لَاٰيٰتٍ لِّقَوْمٍ
+          يَّتَفَكَّرُوْنَ
+        </p>
+      </Reveal>
+      <Reveal delay={400} className="mt-4">
+        <p className="font-display text-base leading-relaxed text-sage-deep italic">
           &ldquo;Dan di antara tanda-tanda kekuasaan-Nya diciptakan-Nya untukmu pasangan hidup dari
           jenismu sendiri, supaya kamu mendapat ketenangan hati dan dijadikan-Nya kasih sayang di
           antara kamu.&rdquo;
         </p>
       </Reveal>
+    </PageShell>
+  );
+}
     </PageShell>
   );
 }
