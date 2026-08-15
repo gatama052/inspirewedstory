@@ -9,7 +9,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Undangan pernikahan Galium & Aiktimal, Sabtu 15 Agustus 2026. Akad nikah, resepsi, lokasi, dan konfirmasi kehadiran.",
+          "Undangan pernikahan Galium & Aiktimal, Rabu 9 September 2026. Akad nikah, resepsi, lokasi, dan konfirmasi kehadiran.",
       },
       { property: "og:title", content: "Galium & Aiktimal — Undangan Pernikahan" },
       {
