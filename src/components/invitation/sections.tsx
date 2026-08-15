@@ -16,9 +16,9 @@ export function PageShell({
 }) {
   return (
     <div
-      className={`flex h-full w-full flex-col items-center justify-center px-7 pt-20 pb-24 text-center ${className}`}
+      className={`flex h-full w-full flex-col items-center justify-center overflow-x-hidden px-6 pt-16 pb-[calc(5.5rem+env(safe-area-inset-bottom))] text-center ${className}`}
     >
-      <div className="w-full max-w-md">{children}</div>
+      <div className="w-full max-w-md min-w-0">{children}</div>
     </div>
   );
 }
@@ -26,14 +26,14 @@ export function PageShell({
 function Eyebrow({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
   return (
     <Reveal delay={delay}>
-      <p className="text-[11px] tracking-[0.42em] text-muted-foreground uppercase">{children}</p>
+      <p className="text-[10px] tracking-[0.4em] text-muted-foreground uppercase">{children}</p>
     </Reveal>
   );
 }
 
 function Divider({ delay = 0 }: { delay?: number }) {
   return (
-    <Reveal delay={delay} variant="scale" className="mx-auto my-5 w-32">
+    <Reveal delay={delay} variant="scale" className="mx-auto my-4 w-28">
       <div className="gold-line" />
     </Reveal>
   );
@@ -52,36 +52,54 @@ export function OpeningSection({
   return (
     <PageShell>
       <Eyebrow delay={100}>The Wedding Of</Eyebrow>
-      <Reveal delay={220} variant="scale">
-        <h1 className="font-display text-6xl leading-[1.05] font-medium text-sage-deep">
-          {INVITATION.groom.name}
-          <span className="mx-2 font-script text-gold">&amp;</span>
-          {INVITATION.bride.name}
+
+      <Reveal delay={220} variant="scale" className="mt-3">
+        <h1 className="font-display leading-[1.02] font-medium text-balance break-words text-sage-deep">
+          <span className="block text-[clamp(2.4rem,13vw,3.75rem)]">{INVITATION.groom.name}</span>
+          <span className="my-0.5 block font-script text-[clamp(1.6rem,8vw,2.25rem)] text-gold">
+            &amp;
+          </span>
+          <span className="block text-[clamp(2.4rem,13vw,3.75rem)]">{INVITATION.bride.name}</span>
         </h1>
       </Reveal>
-      <Divider delay={340} />
-      <Reveal delay={420}>
-        <p className="text-sm text-muted-foreground">Sabtu, 15 Agustus 2026</p>
+
+      <Reveal delay={340} variant="scale" className="mx-auto mt-5 w-[52%] max-w-[210px]">
+        <div className="overflow-hidden rounded-[1.75rem] border border-gold/50 shadow-xl">
+          <img
+            src={ASSETS.couple}
+            alt={`${INVITATION.groom.name} dan ${INVITATION.bride.name}`}
+            className="aspect-[4/5] w-full object-cover"
+          />
+        </div>
       </Reveal>
 
-      <Reveal delay={560} variant="bottom" className="mt-10">
-        <p className="text-[11px] tracking-[0.3em] text-muted-foreground uppercase">Kepada Yth.</p>
-        <p className="mt-2 font-display text-2xl text-sage-deep">{guestName}</p>
+      <Reveal delay={460} className="mt-4">
+        <p className="text-[11px] tracking-[0.28em] text-muted-foreground uppercase">
+          15 Agustus 2026
+        </p>
+      </Reveal>
+
+      <Reveal delay={560} variant="bottom" className="mt-5">
+        <p className="text-[10px] tracking-[0.3em] text-muted-foreground uppercase">Kepada Yth.</p>
+        <p className="mt-1 font-display text-2xl break-words text-sage-deep">{guestName}</p>
       </Reveal>
 
       {opened ? (
-        <Reveal delay={700} className="mt-10">
+        <Reveal delay={700} className="mt-6">
           <div className="flex flex-col items-center gap-1 text-muted-foreground">
             <span className="text-[10px] tracking-[0.3em] uppercase">Geser ke atas</span>
-            <ChevronDown className="h-4 w-4 rotate-180" style={{ animation: "soft-float 2s infinite" }} />
+            <ChevronDown
+              className="h-4 w-4 rotate-180"
+              style={{ animation: "soft-float 2s infinite" }}
+            />
           </div>
         </Reveal>
       ) : (
-        <Reveal delay={700} variant="bottom" className="mt-10">
+        <Reveal delay={700} variant="bottom" className="mt-6">
           <button
             type="button"
             onClick={onOpen}
-            className="rounded-full bg-primary px-9 py-3.5 text-xs tracking-[0.28em] text-primary-foreground uppercase shadow-xl transition-transform active:scale-95"
+            className="rounded-full bg-primary px-8 py-3.5 text-[11px] tracking-[0.28em] text-primary-foreground uppercase shadow-xl transition-transform active:scale-95"
           >
             Buka Undangan
           </button>
@@ -97,7 +115,7 @@ export function GreetingSection() {
     <PageShell>
       <Eyebrow delay={80}>Bismillahirrahmanirrahim</Eyebrow>
       <Divider delay={180} />
-      <Reveal delay={260}>
+      <Reveal delay={260} variant="scale">
         <p className="font-display text-2xl text-sage-deep">Assalamu&apos;alaikum</p>
         <p className="font-display text-2xl text-sage-deep">Warahmatullahi Wabarakatuh</p>
       </Reveal>
@@ -129,7 +147,7 @@ export function QuoteSection() {
 }
 
 /* ── 4. Couple ──────────────────────────────────────────── */
-function Person({
+function PersonCard({
   photo,
   name,
   father,
@@ -145,16 +163,24 @@ function Person({
   variant: "left" | "right";
 }) {
   return (
-    <Reveal delay={delay} variant={variant} className="flex flex-col items-center">
-      <div className="relative h-28 w-28 overflow-hidden rounded-full border-2 border-gold/60 shadow-lg">
+    <Reveal
+      delay={delay}
+      variant={variant}
+      className="glass-card flex items-center gap-4 rounded-3xl px-4 py-3.5 text-left"
+    >
+      <div className="h-20 w-20 shrink-0 overflow-hidden rounded-full border-2 border-gold/60 shadow-md">
         <img src={photo} alt={name} className="h-full w-full object-cover" />
       </div>
-      <h3 className="mt-3 font-display text-2xl text-sage-deep">{name}</h3>
-      <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-        Putra/i dari
-        <br />
-        {father} &amp; {mother}
-      </p>
+      <div className="min-w-0">
+        <h3 className="font-display text-xl leading-tight text-sage-deep">{name}</h3>
+        <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+          Putra/i dari
+          <br />
+          {father}
+          <br />
+          &amp; {mother}
+        </p>
+      </div>
     </Reveal>
   );
 }
@@ -163,29 +189,25 @@ export function CoupleSection() {
   return (
     <PageShell>
       <Eyebrow delay={60}>Mempelai</Eyebrow>
-      <Reveal delay={160} variant="scale" className="mx-auto mt-4 w-44">
-        <img
-          src={ASSETS.couple}
-          alt={`${INVITATION.groom.name} dan ${INVITATION.bride.name}`}
-          className="w-full rounded-2xl object-cover shadow-xl"
-        />
-      </Reveal>
-      <Divider delay={280} />
-      <div className="space-y-6">
-        <Person
+      <Divider delay={160} />
+      <div className="space-y-4">
+        <PersonCard
           photo={ASSETS.groom}
           name={INVITATION.groom.full}
           father={INVITATION.groom.father}
           mother={INVITATION.groom.mother}
-          delay={360}
+          delay={260}
           variant="left"
         />
-        <Person
+        <Reveal delay={380} variant="scale" className="mx-auto w-16">
+          <div className="gold-line" />
+        </Reveal>
+        <PersonCard
           photo={ASSETS.bride}
           name={INVITATION.bride.full}
           father={INVITATION.bride.father}
           mother={INVITATION.bride.mother}
-          delay={520}
+          delay={460}
           variant="right"
         />
       </div>
@@ -195,6 +217,7 @@ export function CoupleSection() {
 
 /* ── 5 & 6. Event ───────────────────────────────────────── */
 export function EventSection({ event }: { event: typeof INVITATION.akad }) {
+  const addressLines = event.address.split(",").map((line) => line.trim());
   return (
     <PageShell>
       <Eyebrow delay={60}>Save The Date</Eyebrow>
@@ -202,68 +225,36 @@ export function EventSection({ event }: { event: typeof INVITATION.akad }) {
         <h2 className="mt-2 font-display text-4xl text-sage-deep">{event.title}</h2>
       </Reveal>
       <Divider delay={260} />
-      <Reveal delay={340} variant="scale" className="glass-card mx-auto rounded-3xl px-6 py-6">
-        <p className="text-[11px] tracking-[0.3em] text-muted-foreground uppercase">{event.day}</p>
-        <p className="my-1 font-display text-6xl leading-none text-sage-deep">{event.date}</p>
+      <Reveal delay={340} variant="scale" className="glass-card mx-auto rounded-3xl px-5 py-5">
+        <p className="text-[10px] tracking-[0.3em] text-muted-foreground uppercase">{event.day}</p>
+        <p className="my-1 font-display text-[3.25rem] leading-none text-sage-deep">{event.date}</p>
         <p className="text-sm text-muted-foreground">{event.month}</p>
-        <div className="gold-line my-4" />
+        <div className="gold-line my-3.5" />
         <p className="text-sm font-medium text-sage-deep">{event.time}</p>
-        <p className="mt-3 font-display text-xl text-sage-deep">{event.place}</p>
-        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{event.address}</p>
+        <p className="mt-2.5 font-display text-xl text-sage-deep">{event.place}</p>
+        <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+          {addressLines.map((line) => (
+            <span key={line} className="block">
+              {line}
+            </span>
+          ))}
+        </p>
+      </Reveal>
+      <Reveal delay={500} variant="bottom" className="mt-4">
+        <a
+          href={event.mapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[10px] tracking-[0.24em] text-primary-foreground uppercase shadow-lg transition-transform active:scale-95"
+        >
+          <MapPin className="h-3.5 w-3.5" /> Kunjungi Google Maps
+        </a>
       </Reveal>
     </PageShell>
   );
 }
 
-/* ── 7. Maps ────────────────────────────────────────────── */
-export function MapsSection() {
-  const locations = [
-    { label: INVITATION.akad.title, place: INVITATION.akad.place, url: INVITATION.akad.mapsUrl },
-    {
-      label: INVITATION.resepsi.title,
-      place: INVITATION.resepsi.place,
-      url: INVITATION.resepsi.mapsUrl,
-    },
-  ];
-  return (
-    <PageShell>
-      <Eyebrow delay={60}>Lokasi Acara</Eyebrow>
-      <Reveal delay={150}>
-        <h2 className="mt-2 font-display text-4xl text-sage-deep">Petunjuk Arah</h2>
-      </Reveal>
-      <Divider delay={250} />
-      <div className="space-y-3">
-        {locations.map((location, index) => (
-          <Reveal key={location.label} delay={330 + index * 130} variant="bottom">
-            <a
-              href={location.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="glass-card flex items-center gap-3 rounded-2xl px-5 py-4 text-left transition-transform active:scale-[0.98]"
-            >
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground">
-                <MapPin className="h-4 w-4" />
-              </span>
-              <span className="min-w-0">
-                <span className="block text-[10px] tracking-[0.25em] text-muted-foreground uppercase">
-                  {location.label}
-                </span>
-                <span className="block truncate font-display text-lg text-sage-deep">
-                  {location.place}
-                </span>
-              </span>
-            </a>
-          </Reveal>
-        ))}
-      </div>
-      <Reveal delay={620} className="mt-4">
-        <p className="text-xs text-muted-foreground">Ketuk untuk membuka Google Maps</p>
-      </Reveal>
-    </PageShell>
-  );
-}
-
-/* ── 8. Countdown ───────────────────────────────────────── */
+/* ── 7. Countdown ───────────────────────────────────────── */
 export function CountdownSection() {
   return (
     <PageShell>
@@ -284,43 +275,7 @@ export function CountdownSection() {
   );
 }
 
-/* ── 9. Gallery ─────────────────────────────────────────── */
-export function GallerySection() {
-  const photos = [
-    { src: ASSETS.couple, alt: "Foto pasangan Galium dan Aiktimal" },
-    { src: ASSETS.groom, alt: "Foto mempelai pria" },
-    { src: ASSETS.bride, alt: "Foto mempelai wanita" },
-  ];
-  return (
-    <PageShell>
-      <Eyebrow delay={60}>Galeri</Eyebrow>
-      <Reveal delay={150}>
-        <h2 className="mt-2 font-display text-4xl text-sage-deep">Our Moments</h2>
-      </Reveal>
-      <Divider delay={250} />
-      <div className="grid grid-cols-2 gap-3">
-        <Reveal delay={330} variant="scale" className="col-span-2">
-          <img
-            src={photos[0]!.src}
-            alt={photos[0]!.alt}
-            className="h-44 w-full rounded-2xl object-cover shadow-lg"
-          />
-        </Reveal>
-        {photos.slice(1).map((photo, index) => (
-          <Reveal key={photo.alt} delay={450 + index * 140} variant="scale">
-            <img
-              src={photo.src}
-              alt={photo.alt}
-              className="h-40 w-full rounded-2xl object-cover shadow-lg"
-            />
-          </Reveal>
-        ))}
-      </div>
-    </PageShell>
-  );
-}
-
-/* ── 10. Love Story ─────────────────────────────────────── */
+/* ── 8. Love Story ──────────────────────────────────────── */
 export function StorySection() {
   return (
     <PageShell>
@@ -350,7 +305,7 @@ export function StorySection() {
   );
 }
 
-/* ── 11. Gift ───────────────────────────────────────────── */
+/* ── 9. Gift ────────────────────────────────────────────── */
 export function GiftSection() {
   const account = "1234567890";
   const copy = async () => {
@@ -373,7 +328,7 @@ export function GiftSection() {
         <img
           src={ASSETS.qris}
           alt="Kode QRIS untuk hadiah pernikahan"
-          className="mx-auto w-44 rounded-xl"
+          className="mx-auto w-40 rounded-xl"
         />
         <p className="mt-3 text-xs text-muted-foreground">Scan QRIS untuk memberi tanda kasih</p>
       </Reveal>
@@ -390,7 +345,7 @@ export function GiftSection() {
   );
 }
 
-/* ── 12. RSVP ───────────────────────────────────────────── */
+/* ── 10. RSVP ───────────────────────────────────────────── */
 export function RsvpSection({ guestId, guestName }: { guestId: string | null; guestName: string }) {
   return (
     <PageShell>
@@ -399,6 +354,51 @@ export function RsvpSection({ guestId, guestName }: { guestId: string | null; gu
         <h2 className="mt-1 mb-4 font-display text-4xl text-sage-deep">RSVP</h2>
       </Reveal>
       <RsvpForm guestId={guestId} guestName={guestName} />
+    </PageShell>
+  );
+}
+
+/* ── 11. Thanks ─────────────────────────────────────────── */
+export function ThanksSection() {
+  return (
+    <PageShell>
+      <Reveal delay={120} variant="scale">
+        <h2 className="font-display text-[clamp(2rem,10vw,2.75rem)] tracking-[0.06em] text-sage-deep">
+          Terima Kasih
+        </h2>
+      </Reveal>
+      <Divider delay={280} />
+      <Reveal delay={420}>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan
+          hadir dan memberikan doa restu kepada kami.
+        </p>
+      </Reveal>
+      <Reveal delay={600} className="mt-6">
+        <p className="text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
+          Dengan penuh cinta,
+        </p>
+      </Reveal>
+      <Reveal delay={760} variant="scale" className="mt-2">
+        <p className="font-display text-[clamp(1.9rem,9vw,2.5rem)] leading-tight text-sage-deep">
+          {INVITATION.groom.name}
+          <span className="mx-2 font-script text-gold">&amp;</span>
+          {INVITATION.bride.name}
+        </p>
+      </Reveal>
+      <Reveal delay={940} className="mt-5">
+        <p className="text-xs leading-relaxed text-muted-foreground">
+          Terima kasih atas doa, restu, dan kehadiran Anda.
+        </p>
+      </Reveal>
+      <Reveal delay={1300} className="mt-12">
+        <p className="text-[9px] tracking-[0.22em] text-sage-deep/50 uppercase">
+          Inspire Wedstory
+        </p>
+        <p className="mt-0.5 text-[8px] tracking-[0.18em] text-sage-deep/40">
+          Your Love. Your Story. &middot; © 2026
+        </p>
+      </Reveal>
     </PageShell>
   );
 }
