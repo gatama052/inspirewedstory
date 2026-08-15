@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Copy, LogOut, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
+import { OwnerOnboarding } from "./OwnerOnboarding";
 import { supabase } from "@/integrations/supabase/client";
 import { INVITATION } from "@/lib/invitation-config";
 
