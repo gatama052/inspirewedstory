@@ -164,9 +164,6 @@ export function QuoteSection() {
     </PageShell>
   );
 }
-    </PageShell>
-  );
-}
 
 /* ── 4. Couple ──────────────────────────────────────────── */
 function PersonCard({
