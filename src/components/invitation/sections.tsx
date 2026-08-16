@@ -187,12 +187,12 @@ function PersonCard({
     <Reveal
       delay={delay}
       variant={variant}
-      className="glass-card flex items-center gap-4 rounded-3xl px-4 py-3.5 text-left"
+      className="glass-card flex flex-col items-center rounded-3xl px-5 py-4 text-center"
     >
-      <div className="h-20 w-20 shrink-0 overflow-hidden rounded-full border-2 border-gold/60 shadow-md">
+      <div className="mb-3 h-24 w-24 shrink-0 overflow-hidden rounded-full border-2 border-gold/60 shadow-md">
         <img src={photo} alt={name} className="h-full w-full object-cover" />
       </div>
-      <div className="min-w-0">
+      <div>
         <h3 className="font-display text-xl leading-tight text-sage-deep">{name}</h3>
         <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
           {role} dari
@@ -414,12 +414,20 @@ export function ThanksSection() {
           Terima kasih atas doa, restu, dan kehadiran Anda.
         </p>
       </Reveal>
-      <Reveal delay={1300} className="mt-12">
+      <Reveal delay={1300} className="mt-12 flex flex-col items-center">
+        <img
+          src={ASSETS.logo}
+          alt="Inspire Wedstory"
+          className="mb-2 h-8 w-auto opacity-50"
+        />
         <p className="text-[9px] tracking-[0.22em] text-sage-deep/50 uppercase">
           Inspire Wedstory
         </p>
         <p className="mt-0.5 text-[8px] tracking-[0.18em] text-sage-deep/40">
-          Your Love. Your Story. &middot; © 2026
+          Your Love. Your Story.
+        </p>
+        <p className="mt-0.5 text-[8px] tracking-[0.18em] text-sage-deep/40">
+          Made by Inspire Wedstory. &middot; © 2026
         </p>
       </Reveal>
     </PageShell>

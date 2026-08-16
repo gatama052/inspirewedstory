@@ -1,5 +1,7 @@
 // Assets are served from /public/media so they work identically on the Lovable
 // preview, Vercel, and any custom domain (no host-specific asset proxy).
+import logoAsset from "@/assets/Logo_inspire_wedstory_background_transparan.png.asset.json";
+
 export const ASSETS = {
   background: "/media/BACKGROUND_UTAMA.png",
   ornamentTopLeft: "/media/ORNAMEN_POJOK_KIRI_ATAS.png",
@@ -11,6 +13,7 @@ export const ASSETS = {
   bride: "/media/Profil_mempelai_wanita.png",
   qris: "/media/QRIS.jpg",
   music: "/media/Kabagyan.mp3",
+  logo: logoAsset.url,
 };
 
 export const PRELOAD_IMAGES = [
