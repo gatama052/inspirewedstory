@@ -35,7 +35,7 @@ export const INVITATION = {
     mapsUrl:
       "https://www.google.com/maps/search/?api=1&query=Jl.+Melati+Raya+No.+12+Sukamaju+Kediri+Jawa+Timur",
   },
-  ownerEmail: "pratama0909@gmail.com",
+  ownerEmail: "galiumaiktimal09@gmail.com",
 };
 
 export const LOVE_STORY = [
