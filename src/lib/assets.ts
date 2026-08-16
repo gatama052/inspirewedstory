@@ -1,25 +1,16 @@
-import background from "@/assets/BACKGROUND_UTAMA.png.asset.json";
-import ornamentTopLeft from "@/assets/ORNAMEN_POJOK_KIRI_ATAS.png.asset.json";
-import ornamentTopRight from "@/assets/ORNAMEN_POJOK_KANAN_ATAS.png.asset.json";
-import ornamentBottomLeft from "@/assets/ORNAMEN_POJOK_KIRI_BAWAH.png.asset.json";
-import ornamentBottomRight from "@/assets/ORNAMEN_POJOK_KANAN_BAWAH.png.asset.json";
-import couple from "@/assets/Poto_mempelai.png.asset.json";
-import groom from "@/assets/Profil_mempelai_pria.png.asset.json";
-import bride from "@/assets/Profil_mempelai_wanita.png.asset.json";
-import qris from "@/assets/QRIS.jpg.asset.json";
-import music from "@/assets/Kabagyan.mp3.asset.json";
-
+// Assets are served from /public/media so they work identically on the Lovable
+// preview, Vercel, and any custom domain (no host-specific asset proxy).
 export const ASSETS = {
-  background: background.url,
-  ornamentTopLeft: ornamentTopLeft.url,
-  ornamentTopRight: ornamentTopRight.url,
-  ornamentBottomLeft: ornamentBottomLeft.url,
-  ornamentBottomRight: ornamentBottomRight.url,
-  couple: couple.url,
-  groom: groom.url,
-  bride: bride.url,
-  qris: qris.url,
-  music: music.url,
+  background: "/media/BACKGROUND_UTAMA.png",
+  ornamentTopLeft: "/media/ORNAMEN_POJOK_KIRI_ATAS.png",
+  ornamentTopRight: "/media/ORNAMEN_POJOK_KANAN_ATAS.png",
+  ornamentBottomLeft: "/media/ORNAMEN_POJOK_KIRI_BAWAH.png",
+  ornamentBottomRight: "/media/ORNAMEN_POJOK_KANAN_BAWAH.png",
+  couple: "/media/Poto_mempelai.png",
+  groom: "/media/Profil_mempelai_pria.png",
+  bride: "/media/Profil_mempelai_wanita.png",
+  qris: "/media/QRIS.jpg",
+  music: "/media/Kabagyan.mp3",
 };
 
 export const PRELOAD_IMAGES = [
