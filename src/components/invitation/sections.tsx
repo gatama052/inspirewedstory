@@ -140,7 +140,7 @@ export function GreetingSection() {
 export function QuoteSection() {
   return (
     <PageShell>
-      <Eyebrow delay={80}>Ar-Rum : 21</Eyebrow>
+      <Eyebrow delay={80}>Firman Allah SWT</Eyebrow>
       <Divider delay={180} />
       <Reveal delay={240} variant="scale">
         <p
@@ -154,11 +154,17 @@ export function QuoteSection() {
           يَّتَفَكَّرُوْنَ
         </p>
       </Reveal>
-      <Reveal delay={400} className="mt-4">
+      <Reveal delay={400} className="mt-5">
         <p className="font-display text-base leading-relaxed text-sage-deep italic">
           &ldquo;Dan di antara tanda-tanda kekuasaan-Nya diciptakan-Nya untukmu pasangan hidup dari
           jenismu sendiri, supaya kamu mendapat ketenangan hati dan dijadikan-Nya kasih sayang di
           antara kamu.&rdquo;
+        </p>
+      </Reveal>
+      <Divider delay={520} />
+      <Reveal delay={600}>
+        <p className="text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
+          (QS. Ar-Rum Ayat 21)
         </p>
       </Reveal>
     </PageShell>
