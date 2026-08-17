@@ -16,13 +16,16 @@ export const ASSETS = {
   logo: "/media/logo-wedstory.webp",
 };
 
-export const PRELOAD_IMAGES = [
+// Everything visible on the cover page — blocks the initial fade-in.
+export const COVER_IMAGES = [
   ASSETS.background,
   ASSETS.ornamentTopLeft,
   ASSETS.ornamentTopRight,
   ASSETS.ornamentBottomLeft,
   ASSETS.ornamentBottomRight,
   ASSETS.couple,
-  ASSETS.groom,
-  ASSETS.bride,
 ];
+
+// Warmed quietly after the cover is on screen.
+export const PRELOAD_IMAGES = [ASSETS.groom, ASSETS.bride, ASSETS.qris, ASSETS.logo];
+
