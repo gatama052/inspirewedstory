@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Invitation } from "@/components/invitation/Invitation";
 import { supabase } from "@/integrations/supabase/client";
 
-export const Route = createFileRoute("/habibi-aisyah/$code")({
+export const Route = createFileRoute("/galium-aiktimal/$code")({
   ssr: false,
   head: () => ({
     meta: [
