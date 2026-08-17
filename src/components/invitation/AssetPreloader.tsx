@@ -56,25 +56,17 @@ export function AssetPreloader({ children }: { children: ReactNode }) {
 
   return (
     <>
-      <div
-        aria-hidden={!ready}
-        className="h-full w-full transition-opacity duration-700 ease-out"
-        style={{ opacity: ready ? 1 : 0 }}
-      >
-        {ready ? children : null}
-      </div>
+      {ready ? children : null}
       <div
         className="pointer-events-none fixed inset-0 z-50 bg-background transition-opacity duration-700 ease-out"
         style={{ opacity: ready ? 0 : 1, visibility: ready ? "hidden" : "visible" }}
         aria-hidden
       >
         <div className="flex h-full w-full items-center justify-center">
-          <span
-            className="h-6 w-6 rounded-full border border-gold/50 border-t-transparent opacity-60"
-            style={{ animation: "spin 900ms linear infinite" }}
-          />
+          <span className="h-6 w-6 animate-spin rounded-full border border-gold/50 border-t-transparent opacity-60" />
         </div>
       </div>
     </>
   );
 }
+
