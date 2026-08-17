@@ -287,9 +287,8 @@ export function EventSection({ event }: { event: typeof INVITATION.akad }) {
 export function CountdownSection() {
   return (
     <PageShell>
-      <Eyebrow delay={60}>Menuju Hari Bahagia</Eyebrow>
       <Reveal delay={150}>
-        <h2 className="mt-2 font-display text-4xl text-sage-deep">Counting Down</h2>
+        <h2 className="font-display text-4xl text-sage-deep">Menuju Hari Bahagia</h2>
       </Reveal>
       <Divider delay={250} />
       <Reveal delay={340} variant="scale">
