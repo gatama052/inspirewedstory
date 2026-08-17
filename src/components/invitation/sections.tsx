@@ -307,24 +307,30 @@ export function CountdownSection() {
 export function StorySection() {
   return (
     <PageShell>
-      <Eyebrow delay={60}>Perjalanan Kami</Eyebrow>
       <Reveal delay={150}>
-        <h2 className="mt-2 font-display text-4xl text-sage-deep">Love Story</h2>
+        <h2 className="font-display text-4xl text-sage-deep">Love Story</h2>
       </Reveal>
       <Divider delay={250} />
-      <ul className="space-y-3 text-left">
+      <ul className="space-y-2.5 text-left">
         {LOVE_STORY.map((item, index) => (
           <Reveal
             key={item.title}
             as="li"
             delay={330 + index * 130}
             variant="left"
-            className="glass-card flex items-center gap-4 rounded-2xl px-5 py-3"
+            className="glass-card flex items-start gap-4 rounded-2xl px-5 py-3"
           >
-            <span className="font-display text-xl text-gold">{item.year}</span>
+            <span className="mt-0.5 font-display text-xl text-gold">{item.year}</span>
             <span className="min-w-0">
-              <span className="block font-display text-lg text-sage-deep">{item.title}</span>
-              <span className="block text-xs text-muted-foreground">{item.subtitle}</span>
+              <span className="block font-display text-lg leading-tight text-sage-deep">
+                {item.title}
+              </span>
+              <span className="block text-[11px] tracking-[0.14em] text-gold/80 uppercase">
+                {item.subtitle}
+              </span>
+              <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">
+                {item.description}
+              </span>
             </span>
           </Reveal>
         ))}
