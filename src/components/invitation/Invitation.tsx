@@ -63,7 +63,7 @@ function InvitationInner({
       id: "opening",
       label: "Pembuka",
       render: () => (
-        <OpeningSection guestName={guestName} opened={opened} onOpen={() => setOpened(true)} />
+        <OpeningSection guestName={guestName} opened={opened} onOpen={handleOpen} />
       ),
     },
     { id: "greeting", label: "Salam", render: () => <GreetingSection /> },
