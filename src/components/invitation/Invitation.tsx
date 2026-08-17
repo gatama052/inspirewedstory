@@ -6,8 +6,8 @@ import { MusicPlayer } from "./MusicPlayer";
 import { BottomNav } from "./BottomNav";
 import { PageDeck, type DeckPage } from "./PageDeck";
 import { OwnerAccess } from "./OwnerAccess";
+import { AssetPreloader } from "./AssetPreloader";
 import { INVITATION } from "@/lib/invitation-config";
-import { PRELOAD_IMAGES } from "@/lib/assets";
 import {
   CoupleSection,
   CountdownSection,
@@ -21,7 +21,21 @@ import {
   ThanksSection,
 } from "./sections";
 
-export function Invitation({
+/** Fullscreen is best-effort: unsupported browsers simply continue as before. */
+async function enterFullscreen() {
+  try {
+    const el = document.documentElement as HTMLElement & {
+      webkitRequestFullscreen?: () => Promise<void> | void;
+    };
+    if (document.fullscreenElement) return;
+    if (el.requestFullscreen) await el.requestFullscreen({ navigationUI: "hide" });
+    else if (el.webkitRequestFullscreen) await el.webkitRequestFullscreen();
+  } catch {
+    /* ignore — not supported or rejected */
+  }
+}
+
+function InvitationInner({
   guestName,
   guestId,
 }: {
@@ -31,12 +45,10 @@ export function Invitation({
   const [opened, setOpened] = useState(false);
   const goRef = useRef<((index: number) => void) | null>(null);
 
-  useEffect(() => {
-    PRELOAD_IMAGES.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
-  }, []);
+  const handleOpen = async () => {
+    await enterFullscreen();
+    setOpened(true);
+  };
 
   // Once the invitation is unlocked, glide straight to the greeting page.
   useEffect(() => {
@@ -45,12 +57,13 @@ export function Invitation({
     return () => window.clearTimeout(t);
   }, [opened]);
 
+
   const pages: DeckPage[] = [
     {
       id: "opening",
       label: "Pembuka",
       render: () => (
-        <OpeningSection guestName={guestName} opened={opened} onOpen={() => setOpened(true)} />
+        <OpeningSection guestName={guestName} opened={opened} onOpen={handleOpen} />
       ),
     },
     { id: "greeting", label: "Salam", render: () => <GreetingSection /> },
@@ -95,3 +108,12 @@ export function Invitation({
     </main>
   );
 }
+
+export function Invitation(props: { guestName: string; guestId: string | null }) {
+  return (
+    <AssetPreloader>
+      <InvitationInner {...props} />
+    </AssetPreloader>
+  );
+}
+
