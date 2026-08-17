@@ -108,3 +108,12 @@ function InvitationInner({
     </main>
   );
 }
+
+export function Invitation(props: { guestName: string; guestId: string | null }) {
+  return (
+    <AssetPreloader>
+      <InvitationInner {...props} />
+    </AssetPreloader>
+  );
+}
+
