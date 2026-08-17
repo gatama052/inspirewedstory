@@ -7,13 +7,13 @@ export const Route = createFileRoute("/galium-aiktimal/$code")({
   ssr: false,
   head: () => ({
     meta: [
-      { title: "Galium & Aiktimal — Undangan Pernikahan" },
+      { title: "Habibi & Aisyah — Undangan Pernikahan" },
       {
         name: "description",
         content:
-          "Undangan pernikahan Galium & Aiktimal, Rabu 9 September 2026. Konfirmasi kehadiran melalui link pribadi Anda.",
+          "Undangan pernikahan Habibi & Aisyah, Rabu 9 September 2026. Konfirmasi kehadiran melalui link pribadi Anda.",
       },
-      { property: "og:title", content: "Galium & Aiktimal — Undangan Pernikahan" },
+      { property: "og:title", content: "Habibi & Aisyah — Undangan Pernikahan" },
       {
         property: "og:description",
         content: "Undangan pribadi untuk hari bahagia kami, 9 September 2026.",

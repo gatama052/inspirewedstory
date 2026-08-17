@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
-import { ChevronDown, Copy, MapPin } from "lucide-react";
+import { useState, type ReactNode } from "react";
+import { ChevronDown, Copy, Gift, MapPin } from "lucide-react";
 import { toast } from "sonner";
 import { ASSETS } from "@/lib/assets";
 import { INVITATION, LOVE_STORY } from "@/lib/invitation-config";
@@ -79,7 +79,7 @@ export function OpeningSection({
       </Reveal>
 
       <Reveal delay={620} variant="bottom" className="mt-7">
-        <p className="text-[10px] tracking-[0.3em] text-muted-foreground uppercase">Kepada Yth.</p>
+        <p className="text-[10px] tracking-[0.3em] text-muted-foreground uppercase">Yth. Bapak/Ibu/Saudara/i</p>
         <p className="mt-1.5 font-display text-2xl break-words text-sage-deep">{guestName}</p>
       </Reveal>
 
@@ -140,7 +140,7 @@ export function GreetingSection() {
 export function QuoteSection() {
   return (
     <PageShell>
-      <Eyebrow delay={80}>Ar-Rum : 21</Eyebrow>
+      <Eyebrow delay={80}>Firman Allah SWT</Eyebrow>
       <Divider delay={180} />
       <Reveal delay={240} variant="scale">
         <p
@@ -154,11 +154,17 @@ export function QuoteSection() {
           يَّتَفَكَّرُوْنَ
         </p>
       </Reveal>
-      <Reveal delay={400} className="mt-4">
+      <Reveal delay={400} className="mt-5">
         <p className="font-display text-base leading-relaxed text-sage-deep italic">
           &ldquo;Dan di antara tanda-tanda kekuasaan-Nya diciptakan-Nya untukmu pasangan hidup dari
           jenismu sendiri, supaya kamu mendapat ketenangan hati dan dijadikan-Nya kasih sayang di
           antara kamu.&rdquo;
+        </p>
+      </Reveal>
+      <Divider delay={520} />
+      <Reveal delay={600}>
+        <p className="text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
+          (QS. Ar-Rum Ayat 21)
         </p>
       </Reveal>
     </PageShell>
@@ -281,9 +287,8 @@ export function EventSection({ event }: { event: typeof INVITATION.akad }) {
 export function CountdownSection() {
   return (
     <PageShell>
-      <Eyebrow delay={60}>Menuju Hari Bahagia</Eyebrow>
       <Reveal delay={150}>
-        <h2 className="mt-2 font-display text-4xl text-sage-deep">Counting Down</h2>
+        <h2 className="font-display text-4xl text-sage-deep">Menuju Hari Bahagia</h2>
       </Reveal>
       <Divider delay={250} />
       <Reveal delay={340} variant="scale">
@@ -302,24 +307,30 @@ export function CountdownSection() {
 export function StorySection() {
   return (
     <PageShell>
-      <Eyebrow delay={60}>Perjalanan Kami</Eyebrow>
       <Reveal delay={150}>
-        <h2 className="mt-2 font-display text-4xl text-sage-deep">Love Story</h2>
+        <h2 className="font-display text-4xl text-sage-deep">Love Story</h2>
       </Reveal>
       <Divider delay={250} />
-      <ul className="space-y-3 text-left">
+      <ul className="space-y-2.5 text-left">
         {LOVE_STORY.map((item, index) => (
           <Reveal
             key={item.title}
             as="li"
             delay={330 + index * 130}
             variant="left"
-            className="glass-card flex items-center gap-4 rounded-2xl px-5 py-3"
+            className="glass-card flex items-start gap-4 rounded-2xl px-5 py-3"
           >
-            <span className="font-display text-xl text-gold">{item.year}</span>
+            <span className="mt-0.5 font-display text-xl text-gold">{item.year}</span>
             <span className="min-w-0">
-              <span className="block font-display text-lg text-sage-deep">{item.title}</span>
-              <span className="block text-xs text-muted-foreground">{item.subtitle}</span>
+              <span className="block font-display text-lg leading-tight text-sage-deep">
+                {item.title}
+              </span>
+              <span className="block text-[11px] tracking-[0.14em] text-gold/80 uppercase">
+                {item.subtitle}
+              </span>
+              <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">
+                {item.description}
+              </span>
             </span>
           </Reveal>
         ))}
@@ -329,41 +340,125 @@ export function StorySection() {
 }
 
 /* ── 9. Gift ────────────────────────────────────────────── */
+type GiftTab = "qris" | "bank" | "kado";
+
 export function GiftSection() {
-  const account = "1234567890";
-  const copy = async () => {
+  const [open, setOpen] = useState(false);
+  const [tab, setTab] = useState<GiftTab>("qris");
+  const gift = INVITATION.gift;
+
+  const copy = async (value: string, message: string) => {
     try {
-      await navigator.clipboard.writeText(account);
-      toast.success("Nomor rekening disalin");
+      await navigator.clipboard.writeText(value);
+      toast.success(message);
     } catch {
       toast.error("Gagal menyalin");
     }
   };
 
+  const tabs: { id: GiftTab; label: string }[] = [
+    { id: "qris", label: "QRIS" },
+    { id: "bank", label: "Transfer Bank" },
+    { id: "kado", label: "Kirim Kado" },
+  ];
+
   return (
     <PageShell>
-      <Eyebrow delay={60}>Wedding Gift</Eyebrow>
-      <Reveal delay={150}>
-        <h2 className="mt-2 font-display text-4xl text-sage-deep">Tanda Kasih</h2>
+      <Reveal delay={120}>
+        <h2 className="font-display text-4xl text-sage-deep">Wedding Gift</h2>
       </Reveal>
-      <Divider delay={250} />
-      <Reveal delay={330} variant="scale" className="glass-card mx-auto rounded-3xl p-5">
-        <img
-          src={ASSETS.qris}
-          alt="Kode QRIS untuk hadiah pernikahan"
-          className="mx-auto w-40 rounded-xl"
-        />
-        <p className="mt-3 text-xs text-muted-foreground">Scan QRIS untuk memberi tanda kasih</p>
+      <Divider delay={220} />
+      <Reveal delay={300}>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          Doa dan restu Anda merupakan karunia yang sangat berarti bagi kami. Namun, apabila memberi
+          merupakan ungkapan tanda kasih Anda, kami dengan senang hati menyediakan pilihan kado
+          secara digital.
+        </p>
       </Reveal>
-      <Reveal delay={480} variant="bottom" className="mt-4">
-        <button
-          type="button"
-          onClick={copy}
-          className="glass-card inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm text-sage-deep"
-        >
-          <Copy className="h-3.5 w-3.5" /> {account} &middot; a.n. Galium
-        </button>
-      </Reveal>
+
+      {!open ? (
+        <Reveal delay={440} variant="bottom" className="mt-6">
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-[11px] tracking-[0.26em] text-primary-foreground uppercase shadow-lg transition-transform active:scale-95"
+          >
+            <Gift className="h-3.5 w-3.5" /> Wedding Gift
+          </button>
+        </Reveal>
+      ) : (
+        <Reveal delay={60} variant="bottom" className="mt-5">
+          <div className="glass-card mx-auto rounded-3xl p-4">
+            <div className="mb-4 flex items-center justify-center gap-1.5">
+              {tabs.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => setTab(item.id)}
+                  className={`rounded-full px-3 py-1.5 text-[10px] tracking-[0.14em] uppercase transition-colors ${
+                    tab === item.id
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground"
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+
+            {tab === "qris" ? (
+              <div>
+                <img
+                  src={ASSETS.qris}
+                  alt="Kode QRIS untuk hadiah pernikahan"
+                  className="mx-auto w-40 rounded-xl"
+                />
+                <p className="mt-3 text-xs text-muted-foreground">
+                  Scan kode QRIS di atas melalui aplikasi pembayaran Anda.
+                </p>
+              </div>
+            ) : null}
+
+            {tab === "bank" ? (
+              <div>
+                <p className="text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
+                  {gift.bank}
+                </p>
+                <p className="my-1.5 font-display text-2xl tracking-wide text-sage-deep">
+                  {gift.account}
+                </p>
+                <p className="text-xs text-muted-foreground">a.n. {gift.holder}</p>
+                <button
+                  type="button"
+                  onClick={() => copy(gift.account, "✓ Nomor rekening berhasil disalin")}
+                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-[10px] tracking-[0.22em] text-primary-foreground uppercase transition-transform active:scale-95"
+                >
+                  <Copy className="h-3.5 w-3.5" /> Salin Nomor Rekening
+                </button>
+              </div>
+            ) : null}
+
+            {tab === "kado" ? (
+              <div>
+                <p className="text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
+                  Alamat Pengiriman
+                </p>
+                <p className="mt-1.5 font-display text-lg text-sage-deep">{gift.addressName}</p>
+                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{gift.address}</p>
+                <button
+                  type="button"
+                  onClick={() =>
+                    copy(`${gift.addressName}, ${gift.address}`, "✓ Alamat berhasil disalin")
+                  }
+                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-[10px] tracking-[0.22em] text-primary-foreground uppercase transition-transform active:scale-95"
+                >
+                  <Copy className="h-3.5 w-3.5" /> Salin Alamat
+                </button>
+              </div>
+            ) : null}
+          </div>
+        </Reveal>
+      )}
     </PageShell>
   );
 }
@@ -372,9 +467,13 @@ export function GiftSection() {
 export function RsvpSection({ guestId, guestName }: { guestId: string | null; guestName: string }) {
   return (
     <PageShell>
-      <Eyebrow delay={60}>Konfirmasi Kehadiran</Eyebrow>
-      <Reveal delay={140}>
-        <h2 className="mt-1 mb-4 font-display text-4xl text-sage-deep">RSVP</h2>
+      <Reveal delay={120}>
+        <h2 className="font-display text-4xl text-sage-deep">Ucapan &amp; Doa</h2>
+      </Reveal>
+      <Reveal delay={220} className="mt-1 mb-4">
+        <p className="text-xs leading-relaxed text-muted-foreground">
+          Kirimkan doa dan ucapan terbaik Anda untuk kedua mempelai
+        </p>
       </Reveal>
       <RsvpForm guestId={guestId} guestName={guestName} />
     </PageShell>
@@ -385,19 +484,19 @@ export function RsvpSection({ guestId, guestName }: { guestId: string | null; gu
 export function ThanksSection() {
   return (
     <PageShell>
-      <Reveal delay={120} variant="scale">
-        <h2 className="font-display text-[clamp(2rem,10vw,2.75rem)] tracking-[0.06em] text-sage-deep">
-          Terima Kasih
-        </h2>
-      </Reveal>
-      <Divider delay={280} />
-      <Reveal delay={420}>
+      <Reveal delay={160}>
         <p className="text-sm leading-relaxed text-muted-foreground">
           Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan
           hadir dan memberikan doa restu kepada kami.
         </p>
       </Reveal>
-      <Reveal delay={600} className="mt-6">
+      <Reveal delay={320} className="mt-4">
+        <p className="font-display text-lg leading-relaxed text-sage-deep">
+          Wassalamu&apos;alaikum warahmatullahi wabarakatuh.
+        </p>
+      </Reveal>
+      <Divider delay={460} />
+      <Reveal delay={600} className="mt-4">
         <p className="text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
           Dengan penuh cinta,
         </p>
@@ -409,23 +508,10 @@ export function ThanksSection() {
           {INVITATION.bride.name}
         </p>
       </Reveal>
-      <Reveal delay={940} className="mt-5">
-        <p className="text-xs leading-relaxed text-muted-foreground">
-          Terima kasih atas doa, restu, dan kehadiran Anda.
-        </p>
-      </Reveal>
-      <Reveal delay={1300} className="mt-12 flex flex-col items-center">
-        <img
-          src={ASSETS.logo}
-          alt="Inspire Wedstory"
-          className="mb-2 h-8 w-auto opacity-50"
-        />
-        <p className="text-[9px] tracking-[0.22em] text-sage-deep/50 uppercase">
-          Inspire Wedstory
-        </p>
-        <p className="mt-0.5 text-[8px] tracking-[0.18em] text-sage-deep/40">
-          Your Love. Your Story.
-        </p>
+      <Reveal delay={1100} className="mt-12 flex flex-col items-center">
+        <img src={ASSETS.logo} alt="Inspire Wedstory" className="mb-1.5 h-7 w-auto opacity-50" />
+        <p className="text-[9px] tracking-[0.22em] text-sage-deep/50 uppercase">Inspire Wedstory</p>
+        <p className="mt-0.5 text-[8px] tracking-[0.18em] text-sage-deep/40">Your Love. Your Story.</p>
         <p className="mt-0.5 text-[8px] tracking-[0.18em] text-sage-deep/40">
           Made by Inspire Wedstory. &middot; © 2026
         </p>
