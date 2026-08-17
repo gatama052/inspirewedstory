@@ -1,14 +1,14 @@
 export const INVITATION = {
   slug: "galium-aiktimal",
   groom: {
-    name: "Galium",
-    full: "Galium Pratama",
+    name: "Habibi",
+    full: "Muhammad Habibi",
     father: "Bapak Ahmad Pratama",
     mother: "Ibu Nur Aisyah",
   },
   bride: {
-    name: "Aiktimal",
-    full: "Aiktimal Rahma",
+    name: "Aisyah",
+    full: "Aisyah Humaira",
     father: "Bapak Muhammad Fadli",
     mother: "Ibu Siti Rahma",
   },
@@ -35,12 +35,39 @@ export const INVITATION = {
     mapsUrl:
       "https://www.google.com/maps/search/?api=1&query=Jl.+Melati+Raya+No.+12+Sukamaju+Kediri+Jawa+Timur",
   },
+  gift: {
+    bank: "Bank BCA",
+    account: "1234567890",
+    holder: "Muhammad Habibi",
+    addressName: "Muhammad Habibi & Aisyah Humaira",
+    address: "Jl. Melati Raya No. 12, Kecamatan Sukamaju, Kabupaten Kediri, Jawa Timur 64111",
+  },
   ownerEmail: "galiumaiktimal09@gmail.com",
 };
 
 export const LOVE_STORY = [
-  { title: "The Beginning", subtitle: "Pertama Bertemu", year: "2021" },
-  { title: "The Journey", subtitle: "Mulai Mengenal", year: "2022" },
-  { title: "The Promise", subtitle: "Memutuskan Bersama", year: "2025" },
-  { title: "The Day", subtitle: "Hari Pernikahan", year: "2026" },
+  {
+    title: "The Beginning",
+    subtitle: "Pertama Bertemu",
+    year: "2021",
+    description: "Pertemuan sederhana yang tidak direncanakan, namun meninggalkan kesan mendalam.",
+  },
+  {
+    title: "The Journey",
+    subtitle: "Mulai Mengenal",
+    year: "2022",
+    description: "Saling mengenal lebih dalam, melewati suka duka, dan tumbuh bersama.",
+  },
+  {
+    title: "The Promise",
+    subtitle: "Memutuskan Bersama",
+    year: "2025",
+    description: "Sebuah janji untuk melangkah lebih serius menuju jenjang yang diridhoi.",
+  },
+  {
+    title: "The Day",
+    subtitle: "Hari Pernikahan",
+    year: "2026",
+    description: "Hari yang kami nantikan, menyatukan dua hati dalam ikatan yang suci.",
+  },
 ];
