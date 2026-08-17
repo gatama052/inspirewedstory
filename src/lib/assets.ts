@@ -13,7 +13,7 @@ export const ASSETS = {
   bride: "/media/Profil_mempelai_wanita.png",
   qris: "/media/QRIS.jpg",
   music: "/media/Kabagyan.mp3",
-  logo: logoAsset.url,
+  logo: "/media/logo-wedstory.webp",
 };
 
 export const PRELOAD_IMAGES = [
