@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
-import { ChevronDown, Copy, MapPin } from "lucide-react";
+import { useState, type ReactNode } from "react";
+import { ChevronDown, Copy, Gift, MapPin } from "lucide-react";
 import { toast } from "sonner";
 import { ASSETS } from "@/lib/assets";
 import { INVITATION, LOVE_STORY } from "@/lib/invitation-config";
@@ -79,7 +79,7 @@ export function OpeningSection({
       </Reveal>
 
       <Reveal delay={620} variant="bottom" className="mt-7">
-        <p className="text-[10px] tracking-[0.3em] text-muted-foreground uppercase">Kepada Yth.</p>
+        <p className="text-[10px] tracking-[0.3em] text-muted-foreground uppercase">Yth. Bapak/Ibu/Saudara/i</p>
         <p className="mt-1.5 font-display text-2xl break-words text-sage-deep">{guestName}</p>
       </Reveal>
 
