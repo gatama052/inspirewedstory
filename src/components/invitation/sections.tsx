@@ -23,6 +23,37 @@ export function PageShell({
   );
 }
 
+/**
+ * Images fade in only once decoded, so nothing pops in half-painted while a
+ * page transition is still running.
+ */
+export function SmoothImage({
+  src,
+  alt,
+  className = "",
+  style,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  const [loaded, setLoaded] = useState(false);
+  return (
+    <img
+      src={src}
+      alt={alt}
+      decoding="async"
+      onLoad={() => setLoaded(true)}
+      ref={(el) => {
+        if (el?.complete) setLoaded(true);
+      }}
+      className={`${className} transition-opacity duration-500 ease-out`}
+      style={{ ...style, opacity: loaded ? undefined : 0 }}
+    />
+  );
+}
+
 function Eyebrow({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
   return (
     <Reveal delay={delay}>
