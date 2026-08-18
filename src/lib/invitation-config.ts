@@ -1,5 +1,5 @@
 export const INVITATION = {
-  slug: "galium-aiktimal",
+  slug: "habibi-aisyah",
   groom: {
     name: "Habibi",
     full: "Muhammad Habibi",

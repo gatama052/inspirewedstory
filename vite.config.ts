@@ -7,7 +7,7 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 // On Vercel, build with the Vercel nitro preset so SSR routes (e.g.
-// /galium-aiktimal/CODE) work on the Vercel domain and any custom domain.
+// /habibi-aisyah/CODE) work on the Vercel domain and any custom domain.
 // Locally / on Lovable the default preset is kept untouched.
 const isVercel = Boolean(process.env["VERCEL"]);
 
