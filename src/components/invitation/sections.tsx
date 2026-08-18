@@ -509,11 +509,10 @@ export function ThanksSection() {
         </p>
       </Reveal>
       <Reveal delay={1100} className="mt-12 flex flex-col items-center">
-        <img src={ASSETS.logo} alt="Inspire Wedstory" className="mb-1.5 h-7 w-auto opacity-50" />
-        <p className="text-[9px] tracking-[0.22em] text-sage-deep/50 uppercase">Inspire Wedstory</p>
-        <p className="mt-0.5 text-[8px] tracking-[0.18em] text-sage-deep/40">Your Love. Your Story.</p>
-        <p className="mt-0.5 text-[8px] tracking-[0.18em] text-sage-deep/40">
-          Made by Inspire Wedstory. &middot; © 2026
+        <SmoothImage src={ASSETS.logo} alt="Inspire Wedstory" className="mb-1.5 h-7 w-auto opacity-50" />
+        <p className="text-[9px] tracking-[0.22em] text-sage-deep/50 uppercase">Your Love. Your Story.</p>
+        <p className="mt-1 text-[8px] tracking-[0.18em] text-sage-deep/40">
+          Created with love by Inspire Wedstory &middot; 2026
         </p>
       </Reveal>
     </PageShell>
