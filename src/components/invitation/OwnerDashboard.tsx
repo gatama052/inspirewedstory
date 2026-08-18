@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { Copy, LogOut, MessageCircle, Trash2, X } from "lucide-react";
+import { Copy, LogOut, Send, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
 import { OwnerOnboarding } from "./OwnerOnboarding";
 import { supabase } from "@/integrations/supabase/client";
@@ -117,28 +117,40 @@ export function OwnerDashboard({ onClose }: { onClose: () => void }) {
 
   const shareWhatsApp = (guest: Guest) => {
     const { resepsi } = INVITATION;
+    const tanggal = `${resepsi.day}, ${resepsi.date} ${resepsi.month}`;
     const message = [
       "Yth.",
       "Bapak/Ibu/Saudara/i",
-      guest.name,
+      "",
+      `*${guest.name}*`,
+      "",
       "di tempat",
       "",
-      "Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara Resepsi Pernikahan kami pada:",
       "",
-      `${resepsi.day}, ${resepsi.date} ${resepsi.month}`,
-      `Pukul ${resepsi.time}`,
-      resepsi.place,
-      resepsi.address,
+      "Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara *Resepsi Pernikahan kami* pada:",
+      "",
+      "",
+      `*Tanggal:* ${tanggal}`,
+      `*Waktu:* ${resepsi.time}`,
+      `*Alamat:* ${resepsi.address}`,
+      "",
       "",
       "Info lebih lengkap mengenai acara dan lokasi dapat dilihat melalui link berikut:",
+      "",
+      "",
       guestUrl(guest),
+      "",
       "",
       "Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.",
       "",
-      "Kami yang berbahagia,",
+      "",
+      "*Kami yang berbahagia,*",
       "Keluarga Kedua Mempelai",
       "",
-      "Mohon maaf perihal undangan hanya dibagikan melalui pesan ini.",
+      "",
+      "━━━━━━━━━━━━━━",
+      "",
+      "_Mohon maaf perihal undangan hanya dibagikan melalui pesan ini.._",
     ].join("\n");
     window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, "_blank", "noopener");
   };
@@ -270,7 +282,7 @@ export function OwnerDashboard({ onClose }: { onClose: () => void }) {
                         aria-label={`Bagikan ke WhatsApp untuk ${guest.name}`}
                         className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-border"
                       >
-                        <MessageCircle className="h-3.5 w-3.5" />
+                        <Send className="h-3.5 w-3.5" />
                       </button>
                       <button
                         type="button"
