@@ -1,38 +1,44 @@
-import { Check, FileEdit, Link2, Share2, UserPlus } from "lucide-react";
+import { CheckCircle, Lightbulb, Link2, ListChecks, Mail, Share2, UserPlus } from "lucide-react";
 
 const STEPS = [
   {
-    icon: FileEdit,
-    title: "Sesuaikan detail undangan",
-    description:
-      "Ubah nama pasangan, tanggal acara, lokasi, dan foto di file konfigurasi agar sesuai dengan pernikahan Anda.",
-  },
-  {
     icon: UserPlus,
-    title: "Tambahkan tamu pertama",
+    title: "Tambahkan Tamu",
     description:
-      "Ketik nama tamu di kolom di atas, lalu tekan Tambah. Setiap tamu akan mendapat kode unik otomatis.",
+      "Klik Tambah untuk memasukkan nama tamu yang ingin Anda undang. Setiap tamu akan otomatis mendapatkan link undangan pribadi.",
   },
   {
-    icon: Link2,
-    title: "Uji coba link pribadi",
+    icon: CheckCircle,
+    title: "Pastikan Data Tamu Benar",
     description:
-      "Tekan ikon salin di samping nama tamu, buka link tersebut, dan pastikan nama tamu muncul di halaman pembuka.",
+      "Periksa kembali nama tamu sebelum membagikan undangan agar tidak terjadi kesalahan.",
   },
   {
     icon: Share2,
-    title: "Bagikan ke tamu undangan",
+    title: "Bagikan Undangan",
     description:
-      "Kirim link pribadi ke setiap tamu. Mereka bisa mengisi RSVP dan Anda bisa memantaunya di tab RSVP.",
+      "Gunakan tombol Salin Link untuk menyalin link pribadi atau Bagikan ke WhatsApp untuk langsung mengirim undangan kepada tamu.",
+  },
+  {
+    icon: Mail,
+    title: "Tamu Mengisi RSVP",
+    description:
+      "Tamu dapat membuka undangan melalui link pribadi dan mengisi konfirmasi kehadiran (RSVP).",
+  },
+  {
+    icon: ListChecks,
+    title: "Pantau RSVP",
+    description:
+      "Lihat daftar tamu yang sudah memberikan konfirmasi kehadiran melalui tab RSVP.",
   },
 ];
 
 export function OwnerOnboarding() {
   return (
     <div className="rounded-2xl border border-border bg-card p-5">
-      <h3 className="font-display text-lg text-sage-deep">Selamat datang di dashboard undangan</h3>
+      <h3 className="font-display text-lg text-sage-deep">Selamat datang di dashboard undangan Anda</h3>
       <p className="mt-1 text-sm text-muted-foreground">
-        Ikuti langkah-langkah berikut untuk mulai menggunakan undangan digital Anda.
+        Kelola tamu, bagikan undangan pribadi, dan pantau konfirmasi kehadiran dengan mudah.
       </p>
       <ol className="mt-5 space-y-4">
         {STEPS.map((step, index) => (
@@ -56,9 +62,12 @@ export function OwnerOnboarding() {
           </li>
         ))}
       </ol>
-      <div className="mt-5 flex items-center gap-2 rounded-xl border border-dashed border-border bg-background px-4 py-3 text-xs text-muted-foreground">
-        <Check className="h-4 w-4 shrink-0 text-primary" />
-        <span>Tip: ketuk pojok kiri atas layar tiga kali cepat dari halaman undangan untuk membuka dashboard ini.</span>
+      <div className="mt-5 flex items-start gap-2 rounded-xl border border-dashed border-border bg-background px-4 py-3 text-xs text-muted-foreground">
+        <Lightbulb className="h-4 w-4 shrink-0 text-primary" />
+        <span>
+          <span className="font-medium text-foreground">Tips:</span>{" "}
+          Pastikan nama tamu sudah benar sebelum membagikan undangan. Gunakan fitur Bagikan ke WhatsApp agar pesan undangan, nama tamu, dan link pribadi terisi secara otomatis.
+        </span>
       </div>
     </div>
   );
