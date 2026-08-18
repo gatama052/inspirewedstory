@@ -95,7 +95,7 @@ export function OpeningSection({
       </Reveal>
 
       <Reveal delay={340} className="mt-7">
-        <img
+        <SmoothImage
           src={ASSETS.couple}
           alt={`${INVITATION.groom.name} dan ${INVITATION.bride.name}`}
           className="mx-auto h-[27dvh] w-auto max-w-[70%] object-contain"
@@ -150,7 +150,7 @@ export function GreetingSection() {
         <p className="font-display text-2xl text-sage-deep">Warahmatullahi Wabarakatuh</p>
       </Reveal>
       <Reveal delay={380} className="mt-5">
-        <img
+        <SmoothImage
           src={ASSETS.couple}
           alt={`${INVITATION.groom.name} dan ${INVITATION.bride.name}`}
           className="mx-auto h-[26dvh] w-auto max-w-[70%] object-contain"
@@ -227,7 +227,7 @@ function PersonCard({
       className="glass-card flex flex-col items-center rounded-3xl px-5 py-4 text-center"
     >
       <div className="mb-3 h-24 w-24 shrink-0 overflow-hidden rounded-full border-2 border-gold/60 shadow-md">
-        <img src={photo} alt={name} className="h-full w-full object-cover" />
+        <SmoothImage src={photo} alt={name} className="h-full w-full object-cover" />
       </div>
       <div>
         <h3 className="font-display text-xl leading-tight text-sage-deep">{name}</h3>
@@ -439,7 +439,7 @@ export function GiftSection() {
 
             {tab === "qris" ? (
               <div>
-                <img
+                <SmoothImage
                   src={ASSETS.qris}
                   alt="Kode QRIS untuk hadiah pernikahan"
                   className="mx-auto w-40 rounded-xl"
