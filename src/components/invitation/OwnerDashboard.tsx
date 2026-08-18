@@ -266,6 +266,14 @@ export function OwnerDashboard({ onClose }: { onClose: () => void }) {
                       </button>
                       <button
                         type="button"
+                        onClick={() => shareWhatsApp(guest)}
+                        aria-label={`Bagikan ke WhatsApp untuk ${guest.name}`}
+                        className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-border"
+                      >
+                        <MessageCircle className="h-3.5 w-3.5" />
+                      </button>
+                      <button
+                        type="button"
                         onClick={() => removeGuest(guest.id)}
                         aria-label={`Hapus ${guest.name}`}
                         className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-border text-destructive"
