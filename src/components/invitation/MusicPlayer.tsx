@@ -51,7 +51,7 @@ export function MusicPlayer({ started }: { started: boolean }) {
         type="button"
         onClick={toggle}
         aria-label={playing ? "Jeda musik" : "Putar musik"}
-        className="fixed right-4 top-4 z-40 grid h-8 w-8 place-items-center rounded-full border border-gold/25 bg-background/25 text-primary/70 backdrop-blur-sm transition-transform active:scale-95"
+        className="fixed right-4 top-4 z-40 grid h-7 w-7 place-items-center rounded-full border border-gold/15 bg-background/10 text-primary/45 backdrop-blur-[2px] transition-transform active:scale-95"
       >
         {playing ? (
           <Pause className="h-3 w-3" />
