@@ -23,6 +23,37 @@ export function PageShell({
   );
 }
 
+/**
+ * Images fade in only once decoded, so nothing pops in half-painted while a
+ * page transition is still running.
+ */
+export function SmoothImage({
+  src,
+  alt,
+  className = "",
+  style,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  const [loaded, setLoaded] = useState(false);
+  return (
+    <img
+      src={src}
+      alt={alt}
+      decoding="async"
+      onLoad={() => setLoaded(true)}
+      ref={(el) => {
+        if (el?.complete) setLoaded(true);
+      }}
+      className={`${className} transition-opacity duration-500 ease-out`}
+      style={{ ...style, opacity: loaded ? undefined : 0 }}
+    />
+  );
+}
+
 function Eyebrow({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
   return (
     <Reveal delay={delay}>
@@ -64,7 +95,7 @@ export function OpeningSection({
       </Reveal>
 
       <Reveal delay={340} className="mt-7">
-        <img
+        <SmoothImage
           src={ASSETS.couple}
           alt={`${INVITATION.groom.name} dan ${INVITATION.bride.name}`}
           className="mx-auto h-[27dvh] w-auto max-w-[70%] object-contain"
@@ -119,7 +150,7 @@ export function GreetingSection() {
         <p className="font-display text-2xl text-sage-deep">Warahmatullahi Wabarakatuh</p>
       </Reveal>
       <Reveal delay={380} className="mt-5">
-        <img
+        <SmoothImage
           src={ASSETS.couple}
           alt={`${INVITATION.groom.name} dan ${INVITATION.bride.name}`}
           className="mx-auto h-[26dvh] w-auto max-w-[70%] object-contain"
@@ -196,7 +227,7 @@ function PersonCard({
       className="glass-card flex flex-col items-center rounded-3xl px-5 py-4 text-center"
     >
       <div className="mb-3 h-24 w-24 shrink-0 overflow-hidden rounded-full border-2 border-gold/60 shadow-md">
-        <img src={photo} alt={name} className="h-full w-full object-cover" />
+        <SmoothImage src={photo} alt={name} className="h-full w-full object-cover" />
       </div>
       <div>
         <h3 className="font-display text-xl leading-tight text-sage-deep">{name}</h3>
@@ -408,7 +439,7 @@ export function GiftSection() {
 
             {tab === "qris" ? (
               <div>
-                <img
+                <SmoothImage
                   src={ASSETS.qris}
                   alt="Kode QRIS untuk hadiah pernikahan"
                   className="mx-auto w-40 rounded-xl"
@@ -509,11 +540,10 @@ export function ThanksSection() {
         </p>
       </Reveal>
       <Reveal delay={1100} className="mt-12 flex flex-col items-center">
-        <img src={ASSETS.logo} alt="Inspire Wedstory" className="mb-1.5 h-7 w-auto opacity-50" />
-        <p className="text-[9px] tracking-[0.22em] text-sage-deep/50 uppercase">Inspire Wedstory</p>
-        <p className="mt-0.5 text-[8px] tracking-[0.18em] text-sage-deep/40">Your Love. Your Story.</p>
-        <p className="mt-0.5 text-[8px] tracking-[0.18em] text-sage-deep/40">
-          Made by Inspire Wedstory. &middot; © 2026
+        <SmoothImage src={ASSETS.logo} alt="Inspire Wedstory" className="mb-1.5 h-7 w-auto opacity-50" />
+        <p className="text-[9px] tracking-[0.22em] text-sage-deep/50 uppercase">Your Love. Your Story.</p>
+        <p className="mt-1 text-[8px] tracking-[0.18em] text-sage-deep/40">
+          Created with love by Inspire Wedstory &middot; 2026
         </p>
       </Reveal>
     </PageShell>

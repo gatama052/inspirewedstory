@@ -10,43 +10,43 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as GaliumAiktimalCodeRouteImport } from './routes/galium-aiktimal.$code'
+import { Route as HabibiAisyahCodeRouteImport } from './routes/habibi-aisyah.$code'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const GaliumAiktimalCodeRoute = GaliumAiktimalCodeRouteImport.update({
-  id: '/galium-aiktimal/$code',
-  path: '/galium-aiktimal/$code',
+const HabibiAisyahCodeRoute = HabibiAisyahCodeRouteImport.update({
+  id: '/habibi-aisyah/$code',
+  path: '/habibi-aisyah/$code',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/galium-aiktimal/$code': typeof GaliumAiktimalCodeRoute
+  '/habibi-aisyah/$code': typeof HabibiAisyahCodeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/galium-aiktimal/$code': typeof GaliumAiktimalCodeRoute
+  '/habibi-aisyah/$code': typeof HabibiAisyahCodeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/galium-aiktimal/$code': typeof GaliumAiktimalCodeRoute
+  '/habibi-aisyah/$code': typeof HabibiAisyahCodeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/galium-aiktimal/$code'
+  fullPaths: '/' | '/habibi-aisyah/$code'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/galium-aiktimal/$code'
-  id: '__root__' | '/' | '/galium-aiktimal/$code'
+  to: '/' | '/habibi-aisyah/$code'
+  id: '__root__' | '/' | '/habibi-aisyah/$code'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  GaliumAiktimalCodeRoute: typeof GaliumAiktimalCodeRoute
+  HabibiAisyahCodeRoute: typeof HabibiAisyahCodeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,11 +58,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/galium-aiktimal/$code': {
-      id: '/galium-aiktimal/$code'
-      path: '/galium-aiktimal/$code'
-      fullPath: '/galium-aiktimal/$code'
-      preLoaderRoute: typeof GaliumAiktimalCodeRouteImport
+    '/habibi-aisyah/$code': {
+      id: '/habibi-aisyah/$code'
+      path: '/habibi-aisyah/$code'
+      fullPath: '/habibi-aisyah/$code'
+      preLoaderRoute: typeof HabibiAisyahCodeRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -70,7 +70,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  GaliumAiktimalCodeRoute: GaliumAiktimalCodeRoute,
+  HabibiAisyahCodeRoute: HabibiAisyahCodeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
