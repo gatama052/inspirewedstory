@@ -37,8 +37,13 @@ export function RsvpForm({ guestId, guestName }: { guestId: string | null; guest
       toast.error(parsed.error.issues[0]?.message ?? "Data belum lengkap");
       return;
     }
+    if (!guestId) {
+      toast.error("Silakan buka undangan lewat link pribadi Anda untuk mengirim ucapan");
+      return;
+    }
     setSending(true);
     const { error } = await supabase.from("rsvps").insert({ ...parsed.data, guest_id: guestId });
+
     setSending(false);
     if (error) {
       toast.error("Gagal mengirim, silakan coba lagi");
