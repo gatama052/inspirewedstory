@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { Copy, LogOut, Trash2, X } from "lucide-react";
+import { Copy, LogOut, MessageCircle, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
 import { OwnerOnboarding } from "./OwnerOnboarding";
 import { supabase } from "@/integrations/supabase/client";
@@ -103,14 +103,44 @@ export function OwnerDashboard({ onClose }: { onClose: () => void }) {
     void load();
   };
 
+  const guestUrl = (guest: Guest) =>
+    `${window.location.origin}/${INVITATION.slug}/${guest.code}`;
+
   const copyLink = async (guest: Guest) => {
-    const url = `${window.location.origin}/${INVITATION.slug}/${guest.code}`;
     try {
-      await navigator.clipboard.writeText(url);
-      toast.success(`Link untuk ${guest.name} disalin`);
+      await navigator.clipboard.writeText(guestUrl(guest));
+      toast.success("Link berhasil disalin");
     } catch {
       toast.error("Gagal menyalin link");
     }
+  };
+
+  const shareWhatsApp = (guest: Guest) => {
+    const { resepsi } = INVITATION;
+    const message = [
+      "Yth.",
+      "Bapak/Ibu/Saudara/i",
+      guest.name,
+      "di tempat",
+      "",
+      "Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara Resepsi Pernikahan kami pada:",
+      "",
+      `${resepsi.day}, ${resepsi.date} ${resepsi.month}`,
+      `Pukul ${resepsi.time}`,
+      resepsi.place,
+      resepsi.address,
+      "",
+      "Info lebih lengkap mengenai acara dan lokasi dapat dilihat melalui link berikut:",
+      guestUrl(guest),
+      "",
+      "Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.",
+      "",
+      "Kami yang berbahagia,",
+      "Keluarga Kedua Mempelai",
+      "",
+      "Mohon maaf perihal undangan hanya dibagikan melalui pesan ini.",
+    ].join("\n");
+    window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, "_blank", "noopener");
   };
 
   const stats = {
