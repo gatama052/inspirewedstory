@@ -14,56 +14,319 @@ export type Database = {
   }
   public: {
     Tables: {
+      clients: {
+        Row: {
+          auth_user_id: string
+          created_at: string
+          email: string
+          id: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          auth_user_id: string
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          auth_user_id?: string
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       guests: {
         Row: {
           code: string
           created_at: string
           id: string
+          invitation_id: string
           name: string
-          owner_id: string
         }
         Insert: {
           code: string
           created_at?: string
           id?: string
+          invitation_id: string
           name: string
-          owner_id: string
         }
         Update: {
           code?: string
           created_at?: string
           id?: string
+          invitation_id?: string
           name?: string
-          owner_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "guests_invitation_id_fkey"
+            columns: ["invitation_id"]
+            isOneToOne: false
+            referencedRelation: "invitations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      invitation_content: {
+        Row: {
+          akad_address: string
+          akad_date: string
+          akad_day: string
+          akad_maps_url: string
+          akad_month: string
+          akad_place: string
+          akad_time: string
+          akad_title: string
+          bride_father: string
+          bride_full_name: string
+          bride_mother: string
+          bride_name: string
+          bride_photo_url: string
+          couple_photo_url: string
+          created_at: string
+          gift_account: string
+          gift_address: string
+          gift_address_name: string
+          gift_bank: string
+          gift_holder: string
+          groom_father: string
+          groom_full_name: string
+          groom_mother: string
+          groom_name: string
+          groom_photo_url: string
+          id: string
+          invitation_id: string
+          love_story: Json
+          opening_date_label: string
+          opening_greeting: string
+          opening_title: string
+          qris_url: string
+          quote_arabic: string
+          quote_source: string
+          quote_translation: string
+          reception_address: string
+          reception_date: string
+          reception_day: string
+          reception_maps_url: string
+          reception_month: string
+          reception_place: string
+          reception_time: string
+          reception_title: string
+          updated_at: string
+          wedding_date: string
+        }
+        Insert: {
+          akad_address?: string
+          akad_date?: string
+          akad_day?: string
+          akad_maps_url?: string
+          akad_month?: string
+          akad_place?: string
+          akad_time?: string
+          akad_title?: string
+          bride_father?: string
+          bride_full_name?: string
+          bride_mother?: string
+          bride_name?: string
+          bride_photo_url?: string
+          couple_photo_url?: string
+          created_at?: string
+          gift_account?: string
+          gift_address?: string
+          gift_address_name?: string
+          gift_bank?: string
+          gift_holder?: string
+          groom_father?: string
+          groom_full_name?: string
+          groom_mother?: string
+          groom_name?: string
+          groom_photo_url?: string
+          id?: string
+          invitation_id: string
+          love_story?: Json
+          opening_date_label?: string
+          opening_greeting?: string
+          opening_title?: string
+          qris_url?: string
+          quote_arabic?: string
+          quote_source?: string
+          quote_translation?: string
+          reception_address?: string
+          reception_date?: string
+          reception_day?: string
+          reception_maps_url?: string
+          reception_month?: string
+          reception_place?: string
+          reception_time?: string
+          reception_title?: string
+          updated_at?: string
+          wedding_date?: string
+        }
+        Update: {
+          akad_address?: string
+          akad_date?: string
+          akad_day?: string
+          akad_maps_url?: string
+          akad_month?: string
+          akad_place?: string
+          akad_time?: string
+          akad_title?: string
+          bride_father?: string
+          bride_full_name?: string
+          bride_mother?: string
+          bride_name?: string
+          bride_photo_url?: string
+          couple_photo_url?: string
+          created_at?: string
+          gift_account?: string
+          gift_address?: string
+          gift_address_name?: string
+          gift_bank?: string
+          gift_holder?: string
+          groom_father?: string
+          groom_full_name?: string
+          groom_mother?: string
+          groom_name?: string
+          groom_photo_url?: string
+          id?: string
+          invitation_id?: string
+          love_story?: Json
+          opening_date_label?: string
+          opening_greeting?: string
+          opening_title?: string
+          qris_url?: string
+          quote_arabic?: string
+          quote_source?: string
+          quote_translation?: string
+          reception_address?: string
+          reception_date?: string
+          reception_day?: string
+          reception_maps_url?: string
+          reception_month?: string
+          reception_place?: string
+          reception_time?: string
+          reception_title?: string
+          updated_at?: string
+          wedding_date?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invitation_content_invitation_id_fkey"
+            columns: ["invitation_id"]
+            isOneToOne: true
+            referencedRelation: "invitations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      invitation_photos: {
+        Row: {
+          created_at: string
+          id: string
+          image_url: string
+          invitation_id: string
+          sort_order: number
+          type: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_url: string
+          invitation_id: string
+          sort_order?: number
+          type?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_url?: string
+          invitation_id?: string
+          sort_order?: number
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invitation_photos_invitation_id_fkey"
+            columns: ["invitation_id"]
+            isOneToOne: false
+            referencedRelation: "invitations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      invitations: {
+        Row: {
+          client_id: string
+          created_at: string
+          id: string
+          music_url: string
+          slug: string
+          theme: string
+          updated_at: string
+        }
+        Insert: {
+          client_id: string
+          created_at?: string
+          id?: string
+          music_url?: string
+          slug: string
+          theme?: string
+          updated_at?: string
+        }
+        Update: {
+          client_id?: string
+          created_at?: string
+          id?: string
+          music_url?: string
+          slug?: string
+          theme?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invitations_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       rsvps: {
         Row: {
           attendance: string
           created_at: string
           guest_count: number
-          guest_id: string | null
+          guest_id: string
           guest_name: string
           id: string
+          invitation_id: string
           message: string
         }
         Insert: {
           attendance: string
           created_at?: string
           guest_count?: number
-          guest_id?: string | null
+          guest_id: string
           guest_name?: string
           id?: string
+          invitation_id: string
           message?: string
         }
         Update: {
           attendance?: string
           created_at?: string
           guest_count?: number
-          guest_id?: string | null
+          guest_id?: string
           guest_name?: string
           id?: string
+          invitation_id?: string
           message?: string
         }
         Relationships: [
@@ -74,7 +337,35 @@ export type Database = {
             referencedRelation: "guests"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "rsvps_invitation_id_fkey"
+            columns: ["invitation_id"]
+            isOneToOne: false
+            referencedRelation: "invitations"
+            referencedColumns: ["id"]
+          },
         ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
       }
     }
     Views: {
@@ -82,15 +373,24 @@ export type Database = {
     }
     Functions: {
       get_guest_by_code: {
-        Args: { _code: string }
+        Args: { _code: string; _slug: string }
         Returns: {
           id: string
+          invitation_id: string
           name: string
         }[]
       }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      owns_invitation: { Args: { _invitation_id: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -217,6 +517,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin"],
+    },
   },
 } as const
