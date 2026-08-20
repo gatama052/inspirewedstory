@@ -17,7 +17,15 @@ function loadImage(src: string) {
  * mount only afterwards, so entrance animations always start from a settled
  * layout instead of running while images are still streaming in.
  */
-export function AssetPreloader({ children }: { children: ReactNode }) {
+export function AssetPreloader({
+  children,
+  images = [],
+  secondary = [],
+}: {
+  children: ReactNode;
+  images?: string[];
+  secondary?: string[];
+}) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -34,7 +42,7 @@ export function AssetPreloader({ children }: { children: ReactNode }) {
     // Never block longer than 6s, even on a flaky connection.
     const safety = window.setTimeout(done, 6000);
 
-    Promise.all([...COVER_IMAGES.map(loadImage), fonts]).then(() => {
+    Promise.all([...[...COVER_IMAGES, ...images].map(loadImage), fonts]).then(() => {
       // One frame of breathing room so layout/fonts settle before the fade-in.
       requestAnimationFrame(() => requestAnimationFrame(done));
     });
@@ -48,7 +56,7 @@ export function AssetPreloader({ children }: { children: ReactNode }) {
   // Warm the remaining pages quietly once the cover is up.
   useEffect(() => {
     if (!ready) return;
-    PRELOAD_IMAGES.forEach((src) => {
+    [...PRELOAD_IMAGES, ...secondary].forEach((src) => {
       const img = new Image();
       img.src = src;
     });

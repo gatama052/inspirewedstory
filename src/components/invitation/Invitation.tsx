@@ -5,9 +5,10 @@ import { OrnamentLayer } from "./OrnamentLayer";
 import { MusicPlayer } from "./MusicPlayer";
 import { BottomNav } from "./BottomNav";
 import { PageDeck, type DeckPage } from "./PageDeck";
-import { OwnerAccess } from "./OwnerAccess";
+import { HiddenAccess } from "./HiddenAccess";
 import { AssetPreloader } from "./AssetPreloader";
-import { INVITATION } from "@/lib/invitation-config";
+import { InvitationProvider } from "./InvitationProvider";
+import type { InvitationData } from "@/lib/invitation-data";
 import {
   CoupleSection,
   CountdownSection,
@@ -36,9 +37,11 @@ async function enterFullscreen() {
 }
 
 function InvitationInner({
+  data,
   guestName,
   guestId,
 }: {
+  data: InvitationData;
   guestName: string;
   guestId: string | null;
 }) {
@@ -57,7 +60,6 @@ function InvitationInner({
     return () => window.clearTimeout(t);
   }, [opened]);
 
-
   const pages: DeckPage[] = [
     {
       id: "opening",
@@ -69,15 +71,17 @@ function InvitationInner({
     { id: "greeting", label: "Salam", render: () => <GreetingSection /> },
     { id: "quote", label: "Kutipan", render: () => <QuoteSection /> },
     { id: "couple", label: "Mempelai", render: () => <CoupleSection /> },
-    { id: "akad", label: "Akad Nikah", render: () => <EventSection event={INVITATION.akad} /> },
-    { id: "resepsi", label: "Resepsi", render: () => <EventSection event={INVITATION.resepsi} /> },
+    { id: "akad", label: "Akad Nikah", render: () => <EventSection event={data.akad} /> },
+    { id: "resepsi", label: "Resepsi", render: () => <EventSection event={data.resepsi} /> },
     { id: "countdown", label: "Hitung Mundur", render: () => <CountdownSection /> },
     { id: "story", label: "Love Story", render: () => <StorySection /> },
     { id: "gift", label: "Hadiah", render: () => <GiftSection /> },
     {
       id: "rsvp",
       label: "RSVP",
-      render: () => <RsvpSection guestId={guestId} guestName={guestName} />,
+      render: () => (
+        <RsvpSection guestId={guestId} guestName={guestName} invitationId={data.id} />
+      ),
     },
     { id: "thanks", label: "Penutup", render: () => <ThanksSection /> },
   ];
@@ -85,7 +89,7 @@ function InvitationInner({
   return (
     <main className="relative h-[100dvh] w-full overflow-hidden">
       <BackgroundLayer />
-      <MusicPlayer started={opened} />
+      <MusicPlayer started={opened} src={data.musicUrl} />
       <PageDeck pages={pages} locked={!opened}>
         {({ active, token, go }) => {
           goRef.current = go;
@@ -99,7 +103,7 @@ function InvitationInner({
                   onSelect={(id) => go(pages.findIndex((page) => page.id === id))}
                 />
               ) : null}
-              <OwnerAccess />
+              <HiddenAccess />
             </>
           );
         }}
@@ -109,11 +113,19 @@ function InvitationInner({
   );
 }
 
-export function Invitation(props: { guestName: string; guestId: string | null }) {
+export function Invitation(props: {
+  data: InvitationData;
+  guestName: string;
+  guestId: string | null;
+}) {
   return (
-    <AssetPreloader>
-      <InvitationInner {...props} />
-    </AssetPreloader>
+    <InvitationProvider value={props.data}>
+      <AssetPreloader
+        images={[props.data.couplePhoto]}
+        secondary={[props.data.groom.photo, props.data.bride.photo, props.data.gift.qris]}
+      >
+        <InvitationInner {...props} />
+      </AssetPreloader>
+    </InvitationProvider>
   );
 }
-

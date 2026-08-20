@@ -2,7 +2,8 @@ import { useState, type ReactNode } from "react";
 import { ChevronDown, Copy, Gift, MapPin } from "lucide-react";
 import { toast } from "sonner";
 import { ASSETS } from "@/lib/assets";
-import { INVITATION, LOVE_STORY } from "@/lib/invitation-config";
+import type { EventInfo } from "@/lib/invitation-data";
+import { useInvitation } from "./InvitationProvider";
 import { Reveal } from "./Reveal";
 import { Countdown } from "./Countdown";
 import { RsvpForm } from "./RsvpForm";
@@ -80,24 +81,25 @@ export function OpeningSection({
   opened: boolean;
   onOpen: () => void;
 }) {
+  const data = useInvitation();
   return (
     <PageShell>
-      <Eyebrow delay={100}>The Wedding Of</Eyebrow>
+      <Eyebrow delay={100}>{data.opening.title}</Eyebrow>
 
       <Reveal delay={220} variant="scale" className="mt-3">
         <h1 className="font-display leading-[1.02] font-medium text-balance break-words text-sage-deep">
-          <span className="block text-[clamp(2.4rem,13vw,3.75rem)]">{INVITATION.groom.name}</span>
+          <span className="block text-[clamp(2.4rem,13vw,3.75rem)]">{data.groom.name}</span>
           <span className="my-0.5 block font-script text-[clamp(1.6rem,8vw,2.25rem)] text-gold">
             &amp;
           </span>
-          <span className="block text-[clamp(2.4rem,13vw,3.75rem)]">{INVITATION.bride.name}</span>
+          <span className="block text-[clamp(2.4rem,13vw,3.75rem)]">{data.bride.name}</span>
         </h1>
       </Reveal>
 
       <Reveal delay={340} className="mt-7">
         <SmoothImage
-          src={ASSETS.couple}
-          alt={`${INVITATION.groom.name} dan ${INVITATION.bride.name}`}
+          src={data.couplePhoto}
+          alt={`${data.groom.name} dan ${data.bride.name}`}
           className="mx-auto h-[27dvh] w-auto max-w-[70%] object-contain"
           style={{ animation: "photo-in 800ms cubic-bezier(0.22,1,0.36,1) both" }}
         />
@@ -105,12 +107,12 @@ export function OpeningSection({
 
       <Reveal delay={520} className="mt-7">
         <p className="text-[11px] tracking-[0.28em] text-muted-foreground uppercase">
-          9 September 2026
+          {data.opening.dateLabel}
         </p>
       </Reveal>
 
       <Reveal delay={620} variant="bottom" className="mt-7">
-        <p className="text-[10px] tracking-[0.3em] text-muted-foreground uppercase">Yth. Bapak/Ibu/Saudara/i</p>
+        <p className="text-[10px] tracking-[0.3em] text-muted-foreground uppercase">{data.opening.greeting}</p>
         <p className="mt-1.5 font-display text-2xl break-words text-sage-deep">{guestName}</p>
       </Reveal>
 
@@ -141,6 +143,7 @@ export function OpeningSection({
 
 /* ── 2. Greeting ────────────────────────────────────────── */
 export function GreetingSection() {
+  const data = useInvitation();
   return (
     <PageShell>
       <Eyebrow delay={80}>Bismillahirrahmanirrahim</Eyebrow>
@@ -151,8 +154,8 @@ export function GreetingSection() {
       </Reveal>
       <Reveal delay={380} className="mt-5">
         <SmoothImage
-          src={ASSETS.couple}
-          alt={`${INVITATION.groom.name} dan ${INVITATION.bride.name}`}
+          src={data.couplePhoto}
+          alt={`${data.groom.name} dan ${data.bride.name}`}
           className="mx-auto h-[26dvh] w-auto max-w-[70%] object-contain"
           style={{ animation: "photo-in 800ms cubic-bezier(0.22,1,0.36,1) both" }}
         />
@@ -169,6 +172,7 @@ export function GreetingSection() {
 
 /* ── 3. Quote ───────────────────────────────────────────── */
 export function QuoteSection() {
+  const data = useInvitation();
   return (
     <PageShell>
       <Eyebrow delay={80}>Firman Allah SWT</Eyebrow>
@@ -180,22 +184,18 @@ export function QuoteSection() {
           className="text-[1.15rem] leading-[2.4] text-sage-deep"
           style={{ fontFamily: "'Traditional Arabic', 'Amiri', 'Scheherazade New', serif" }}
         >
-          وَمِنْ اٰيٰتِهٖٓ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْٓا اِلَيْهَا
-          وَجَعَلَ بَيْنَكُمْ مَّوَدَّةً وَّرَحْمَةً ۗاِنَّ فِيْ ذٰلِكَ لَاٰيٰتٍ لِّقَوْمٍ
-          يَّتَفَكَّرُوْنَ
+          {data.quote.arabic}
         </p>
       </Reveal>
       <Reveal delay={400} className="mt-5">
         <p className="font-display text-base leading-relaxed text-sage-deep italic">
-          &ldquo;Dan di antara tanda-tanda kekuasaan-Nya diciptakan-Nya untukmu pasangan hidup dari
-          jenismu sendiri, supaya kamu mendapat ketenangan hati dan dijadikan-Nya kasih sayang di
-          antara kamu.&rdquo;
+          &ldquo;{data.quote.translation}&rdquo;
         </p>
       </Reveal>
       <Divider delay={520} />
       <Reveal delay={600}>
         <p className="text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
-          (QS. Ar-Rum Ayat 21)
+          ({data.quote.source})
         </p>
       </Reveal>
     </PageShell>
@@ -244,16 +244,17 @@ function PersonCard({
 }
 
 export function CoupleSection() {
+  const data = useInvitation();
   return (
     <PageShell>
       <Eyebrow delay={60}>Mempelai</Eyebrow>
       <Divider delay={160} />
       <div className="space-y-4">
         <PersonCard
-          photo={ASSETS.groom}
-          name={INVITATION.groom.full}
-          father={INVITATION.groom.father}
-          mother={INVITATION.groom.mother}
+          photo={data.groom.photo}
+          name={data.groom.full}
+          father={data.groom.father}
+          mother={data.groom.mother}
           role="Putra"
           delay={260}
           variant="left"
@@ -262,10 +263,10 @@ export function CoupleSection() {
           <div className="gold-line" />
         </Reveal>
         <PersonCard
-          photo={ASSETS.bride}
-          name={INVITATION.bride.full}
-          father={INVITATION.bride.father}
-          mother={INVITATION.bride.mother}
+          photo={data.bride.photo}
+          name={data.bride.full}
+          father={data.bride.father}
+          mother={data.bride.mother}
           role="Putri"
           delay={460}
           variant="right"
@@ -276,7 +277,7 @@ export function CoupleSection() {
 }
 
 /* ── 5 & 6. Event ───────────────────────────────────────── */
-export function EventSection({ event }: { event: typeof INVITATION.akad }) {
+export function EventSection({ event }: { event: EventInfo }) {
   const addressLines = event.address.split(",").map((line) => line.trim());
   return (
     <PageShell>
@@ -316,6 +317,7 @@ export function EventSection({ event }: { event: typeof INVITATION.akad }) {
 
 /* ── 7. Countdown ───────────────────────────────────────── */
 export function CountdownSection() {
+  const data = useInvitation();
   return (
     <PageShell>
       <Reveal delay={150}>
@@ -323,7 +325,7 @@ export function CountdownSection() {
       </Reveal>
       <Divider delay={250} />
       <Reveal delay={340} variant="scale">
-        <Countdown date={INVITATION.weddingDate} />
+        <Countdown date={data.weddingDate} />
       </Reveal>
       <Reveal delay={520} className="mt-6">
         <p className="text-sm text-muted-foreground">
@@ -336,6 +338,7 @@ export function CountdownSection() {
 
 /* ── 8. Love Story ──────────────────────────────────────── */
 export function StorySection() {
+  const data = useInvitation();
   return (
     <PageShell>
       <Reveal delay={150}>
@@ -343,7 +346,7 @@ export function StorySection() {
       </Reveal>
       <Divider delay={250} />
       <ul className="space-y-2.5 text-left">
-        {LOVE_STORY.map((item, index) => (
+        {data.loveStory.map((item, index) => (
           <Reveal
             key={item.title}
             as="li"
@@ -376,7 +379,7 @@ type GiftTab = "qris" | "bank" | "kado";
 export function GiftSection() {
   const [open, setOpen] = useState(false);
   const [tab, setTab] = useState<GiftTab>("qris");
-  const gift = INVITATION.gift;
+  const gift = useInvitation().gift;
 
   const copy = async (value: string, message: string) => {
     try {
@@ -440,7 +443,7 @@ export function GiftSection() {
             {tab === "qris" ? (
               <div>
                 <SmoothImage
-                  src={ASSETS.qris}
+                  src={gift.qris}
                   alt="Kode QRIS untuk hadiah pernikahan"
                   className="mx-auto w-40 rounded-xl"
                 />
@@ -495,7 +498,15 @@ export function GiftSection() {
 }
 
 /* ── 10. RSVP ───────────────────────────────────────────── */
-export function RsvpSection({ guestId, guestName }: { guestId: string | null; guestName: string }) {
+export function RsvpSection({
+  guestId,
+  guestName,
+  invitationId,
+}: {
+  guestId: string | null;
+  guestName: string;
+  invitationId: string;
+}) {
   return (
     <PageShell>
       <Reveal delay={120}>
@@ -506,13 +517,14 @@ export function RsvpSection({ guestId, guestName }: { guestId: string | null; gu
           Kirimkan doa dan ucapan terbaik Anda untuk kedua mempelai
         </p>
       </Reveal>
-      <RsvpForm guestId={guestId} guestName={guestName} />
+      <RsvpForm guestId={guestId} guestName={guestName} invitationId={invitationId} />
     </PageShell>
   );
 }
 
 /* ── 11. Thanks ─────────────────────────────────────────── */
 export function ThanksSection() {
+  const data = useInvitation();
   return (
     <PageShell>
       <Reveal delay={160}>
@@ -534,9 +546,9 @@ export function ThanksSection() {
       </Reveal>
       <Reveal delay={760} variant="scale" className="mt-2">
         <p className="font-display text-[clamp(1.9rem,9vw,2.5rem)] leading-tight text-sage-deep">
-          {INVITATION.groom.name}
+          {data.groom.name}
           <span className="mx-2 font-script text-gold">&amp;</span>
-          {INVITATION.bride.name}
+          {data.bride.name}
         </p>
       </Reveal>
       <Reveal delay={1100} className="mt-12 flex flex-col items-center">

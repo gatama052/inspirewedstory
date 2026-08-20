@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { Music, Pause } from "lucide-react";
 import { ASSETS } from "@/lib/assets";
 
-export function MusicPlayer({ started }: { started: boolean }) {
+export function MusicPlayer({ started, src }: { started: boolean; src?: string }) {
+  const track = src || ASSETS.music;
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [playing, setPlaying] = useState(false);
 
@@ -42,11 +43,11 @@ export function MusicPlayer({ started }: { started: boolean }) {
     }
   };
 
-  if (!started) return <audio ref={audioRef} src={ASSETS.music} loop preload="auto" />;
+  if (!started) return <audio ref={audioRef} src={track} loop preload="auto" />;
 
   return (
     <>
-      <audio ref={audioRef} src={ASSETS.music} loop preload="auto" />
+      <audio ref={audioRef} src={track} loop preload="auto" />
       <button
         type="button"
         onClick={toggle}

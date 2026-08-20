@@ -17,7 +17,15 @@ const OPTIONS = [
   { value: "tidak_hadir", label: "Tidak Hadir" },
 ] as const;
 
-export function RsvpForm({ guestId, guestName }: { guestId: string | null; guestName: string }) {
+export function RsvpForm({
+  guestId,
+  guestName,
+  invitationId,
+}: {
+  guestId: string | null;
+  guestName: string;
+  invitationId: string;
+}) {
   const [name, setName] = useState(guestName === "Tamu Undangan" ? "" : guestName);
   const [attendance, setAttendance] = useState<"hadir" | "tidak_hadir" | "ragu">("hadir");
   const [count, setCount] = useState(1);
@@ -42,7 +50,7 @@ export function RsvpForm({ guestId, guestName }: { guestId: string | null; guest
       return;
     }
     setSending(true);
-    const { error } = await supabase.from("rsvps").insert({ ...parsed.data, guest_id: guestId });
+    const { error } = await supabase.from("rsvps").insert({ ...parsed.data, guest_id: guestId, invitation_id: invitationId });
 
     setSending(false);
     if (error) {
