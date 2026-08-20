@@ -498,7 +498,15 @@ export function GiftSection() {
 }
 
 /* ── 10. RSVP ───────────────────────────────────────────── */
-export function RsvpSection({ guestId, guestName }: { guestId: string | null; guestName: string }) {
+export function RsvpSection({
+  guestId,
+  guestName,
+  invitationId,
+}: {
+  guestId: string | null;
+  guestName: string;
+  invitationId: string;
+}) {
   return (
     <PageShell>
       <Reveal delay={120}>
@@ -509,7 +517,7 @@ export function RsvpSection({ guestId, guestName }: { guestId: string | null; gu
           Kirimkan doa dan ucapan terbaik Anda untuk kedua mempelai
         </p>
       </Reveal>
-      <RsvpForm guestId={guestId} guestName={guestName} />
+      <RsvpForm guestId={guestId} guestName={guestName} invitationId={invitationId} />
     </PageShell>
   );
 }
